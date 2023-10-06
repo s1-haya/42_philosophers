@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 13:00:37 by hsawamur          #+#    #+#              #
-#    Updated: 2023/10/05 18:20:23 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/10/06 15:56:58 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 # CFLAGS += -fsanitize=address -g
 
-SRCS = main.c
+SRCS = main.c \
+		debug.c
 
 SRCS_DIR = srcs
 
@@ -32,7 +33,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $< -o $@ $(INCLUDES)
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 

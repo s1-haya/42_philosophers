@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/06 14:49:58 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:03:34 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,39 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-enum philo_status {
-	DEFAULT,
-	EATING,
-	SLPEENG,
-	THINKING,
-	DIED
-}
+// enum philo_status {
+// 	DEFAULT,
+// 	EATING,
+// 	SLPEENG,
+// 	THINKING,
+// 	DIED
+// }
 
 typedef struct e_philo_ability {
-	ssize_t	count;
 	int		die_time;
 	int		eat_time;
 	int		sleep_time;
+	int		eat_count;
 }	t_philo_ability;
-
-typedef struct e_philo {
-	int				id;
-	struct e_fork	left_fork;
-	struct e_fork	right_fork;
-	t_philo_ability	ability;
-}	t_philo;
 
 typedef struct e_fork {
 	pthread_mutex_t	fork;
 	bool			is_used;
 }	t_fork;
 
+typedef struct e_philo {
+	int				id;
+	struct e_fork	*left_fork;
+	struct e_fork	*right_fork;
+	t_philo_ability	ability;
+}	t_philo;
+
 typedef struct e_table {
 	t_fork	**forks;
 	t_philo	**philos;
 }	t_table;
 
+void	printf_debug_table(t_table table);
 #endif
