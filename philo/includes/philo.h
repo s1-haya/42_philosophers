@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/05 22:51:48 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:49:58 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ typedef struct e_philo_ability {
 
 typedef struct e_philo {
 	int				id;
-	struct e_fork	left;
-	struct e_fork	right;
+	struct e_fork	left_fork;
+	struct e_fork	right_fork;
 	t_philo_ability	ability;
 }	t_philo;
-
 
 typedef struct e_fork {
 	pthread_mutex_t	fork;
@@ -52,8 +51,8 @@ typedef struct e_fork {
 }	t_fork;
 
 typedef struct e_table {
-	t_philo	*philos;
-	t_fork	*forks;
+	t_fork	**forks;
+	t_philo	**philos;
 }	t_table;
 
 #endif
