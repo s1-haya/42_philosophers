@@ -3,20 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+         #
+#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 13:00:37 by hsawamur          #+#    #+#              #
-#    Updated: 2023/10/02 13:48:14 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/10/08 19:51:32 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra - Werror
-# CFLAGS += -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -fsanitize=address -g
+
+SRCS = main.c 
 
 SRCS_DIR = srcs
-SRCS = $(SRCS)/init.c
+SRCS += $(SRCS_DIR)/debug.c
 
 OBJS_DIR = objs
 OBJS = $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
@@ -29,16 +31,16 @@ INCLUDES = -I$(INCLUDES_DIR)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-		$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@ $(INCLUDES)
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)
-		@mkdir -p $(dir $@)
-		$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 clean:
-		$(RM) -r $(OBJS_DIR)
+	$(RM) -r $(OBJS_DIR)
 
 fclean: clean
-		$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
