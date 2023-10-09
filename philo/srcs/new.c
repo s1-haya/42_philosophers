@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/09 15:01:09 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:51:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,21 @@ static t_philo_ability	new_philo_ability(int argc, char **argv)
 	return (philo_ability);
 }
 
-t_table	*new_table(int argc, char **argv)
+t_table	*new_table(int argc, char **argv, int n_philo)
 {
 	t_table			*table;
 	t_philo_ability	philo_ability;
-	int				size;
 
 	table = malloc(sizeof(t_table));
 	if (table == NULL)
 		return (NULL);
-	printf("argc %d, argv %s %s %s %s %s\n",argc, argv[0], argv[1], argv[2], argv[3], argv[4]);
-	size = atoi(argv[1]);
-	printf("size %d\n", size);
-	table->forks = create_forks(size);
+	// printf("argc %d, argv %s %s %s %s %s\n",argc, argv[0], argv[1], argv[2], argv[3], argv[4]);
+	// printf("n_philo %d\n", n_philo);
+	table->forks = create_forks(n_philo);
 	if (table->forks == NULL || table->forks[0] == NULL)
 		return (NULL);
 	philo_ability = new_philo_ability(argc, argv);
-	table->philos = create_philos(table->forks, size, philo_ability);
+	table->philos = create_philos(table->forks, n_philo, philo_ability);
 	if (table->forks == NULL || table->philos[0] == NULL)
 		return (NULL);
 	return (table);
