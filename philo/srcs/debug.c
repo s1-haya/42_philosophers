@@ -8,6 +8,8 @@ void	printf_debug_philo_ability(t_philo_ability ability)
 
 void	printf_debug_philo(t_philo *philo)
 {
+	if (philo == NULL)
+		return ;
 	printf("--- debug philo %d ---\n", philo->id);
 	if (!philo->left_fork->is_used)
 		printf("ok left fork\n");
@@ -25,6 +27,7 @@ void	printf_debug_philos(t_philo **philos)
 	i = 0;
 	while (philos[i] != NULL)
 	{
+		printf("id %zu\n", i);
 		printf_debug_philo(philos[i]);
 		i++;
 	}
