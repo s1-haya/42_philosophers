@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/09 16:05:00 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:12:52 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	init(t_table **table, int argc, char **argv)
 	if (is_error(argc, argv))
 		*table = NULL;
 	else
+	{
 		*table = new_table(argc, argv, n_philo);
+		create_pthread(*table, n_philo);
+	}
 }
 
 // void	exec(t_table *table)

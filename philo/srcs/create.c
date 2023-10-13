@@ -6,28 +6,61 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/09 16:03:58 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:23:23 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <sys/time.h>
 
-// void	create_pthread()
-// {
-	// table->starting_time = getMsTime(&tv);
-// 	for (int i = 0; i < N_THREAD; i++){
-// 		data[i] = (t_num_pthread *)malloc(sizeof(t_num_pthread));
-// 		data[i]->num = i;
-// 		data[i]->ms_init = ms;
-// 		data[i]->mutex = mutex;
-// 		p_create = pthread_create(&v[i], NULL, test_pthread, data[i]);
-// 		if (p_create != 0)
-// 		{
-// 			perror("pthread_create");
-// 			return (0);
-// 		}
-// 	}
-// }
+#define ERROR_MES_CREATE_THREAD "pthread fail"
+
+void	*test_pthread(void *arg)
+{
+	t_philo	*data;
+	struct timeval	tv;
+
+	data = (t_philo *)arg;
+
+	// printf("id %d\n", (*data).num);
+	for (int i = 0; i < N_THREAD; i++){
+		printf("id %d, time %ld\n", data->id, getMsTime(&tv) - data->time_of_birth);
+		usleep(1000);
+	}
+
+	printf("waiting N %d...\n", data->id);
+	if (pthread_mutex_lock(&(data->right.fork)) != 0){
+		perror("pthread_mutex_lock");
+		exit(0);
+	}
+	printf("pthread N %d\n", data->id);
+	if (pthread_mutex_unlock(&(data->right.fork)) != 0) {                                      
+		perror("pthread_mutex_unlock() error");                                     
+		exit(0);                                                                    
+	}
+	return (data);
+}
+
+void	create_pthread(t_table *table, int n_philo)
+{
+	struct timeval	tv;
+	int				i;
+	int				p_create;
+	long			starting_time;
+
+	starting_time = getMsTime(&tv);
+	i = 0;
+	while (i < n_philo)
+	{
+		table->philos[i]->time_of_birth = starting_time;
+		p_create = pthread_create(&table->philos[i]->living, NULL, test_pthread, table->philos[i]);
+		if (p_create != 0)
+		{
+			write(2, ERROR_MES_CREATE_THREAD, ft_strlen(ERROR_MES_CREATE_THREAD));
+			return ;
+		}
+	}
+}
 
 t_philo	**create_philos(t_fork **forks, int n_philo, t_philo_ability ability)
 {

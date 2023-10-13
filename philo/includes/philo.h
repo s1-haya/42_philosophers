@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/09 15:55:52 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:23:23 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 // enum philo_status {
 // 	DEFAULT,
@@ -47,8 +48,8 @@ typedef struct e_fork {
 typedef struct e_philo {
 	int				id;
 	pthread_t		living;
-	struct e_fork	*left_fork;
-	struct e_fork	*right_fork;
+	struct e_fork	left;
+	struct e_fork	right;
 	t_philo_ability	ability;
 	long			time_of_birth;
 }	t_philo;
@@ -69,7 +70,11 @@ t_fork	*new_fork();
 // create.c
 t_philo	**create_philos(t_fork **forks, int n_philo, t_philo_ability ability);
 t_fork	**create_forks(int n_philo);
+void	create_pthread(t_table *table, int n_philo);
 
 // delete.c
 void	delete_table(t_table *table);
+
+int		ft_atoi(const char *str);
+size_t	ft_strlen(const char *str);
 #endif

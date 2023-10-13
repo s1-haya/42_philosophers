@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/09 15:51:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:23:23 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability abili
 	if (philo == NULL)
 		return (NULL);
 	philo->id = id;
-	philo->left_fork = left;
-	philo->right_fork = right;
+	philo->left = left;
+	philo->right = right;
 	philo->ability = ability;
+	philo->living = malloc(sizeof(pthread_t));
 	return (philo);
 }
 

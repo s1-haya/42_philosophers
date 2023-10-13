@@ -6,11 +6,9 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:06:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/01/23 14:05:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:04:14 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 static char	*ft_space(char *s)
 {
