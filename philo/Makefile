@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 13:00:37 by hsawamur          #+#    #+#              #
-#    Updated: 2023/10/09 16:04:10 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/10/13 16:06:29 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ SRCS = $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/create.c \
 		$(SRCS_DIR)/new.c \
 		$(SRCS_DIR)/delete.c \
-		$(SRCS_DIR)/debug.c
+		$(SRCS_DIR)/ft_strlen.c \
+		$(SRCS_DIR)/ft_atoi.c \
+		$(SRCS_DIR)/debug.c \
 
 OBJS_DIR = objs
 OBJS = $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))

@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   delete.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:57:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/09 15:57:30 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:12:36 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// void	delete_pthread(t_philo **philo, size_t size)
-// {
-// 	for (int i = 0; i < N_THREAD; i++){
-// 		char *ret;
-// 		p_join = pthread_join(v[i], (void **)&ret);
-// 		free(data[i]);
-// 		if (p_join == 0)
-// 			printf("finish ID %d, %s\n", i, ret);
-// 		else
-// 		{
-// 			perror("pthread_join");
-// 			return (0);
-// 		}
-// 	}
-// }
+void	delete_pthread(t_philo **philo, int n_philo)
+{
+	int		p_join;
+	int		i;
+	char	*ret;
+
+	i = 0;
+	while (i < n_philo)
+	{
+		p_join = pthread_join(philo[i]->living, (void **)&ret);
+		if (p_join == 0)
+			printf("finish ID %d, %s\n", i, ret);
+		else
+		{
+			perror("pthread_join");
+			return ;
+		}
+		i++;
+	}
+}
 
 // void	delete_mutex()
 // {

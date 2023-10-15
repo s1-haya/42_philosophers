@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/09 16:05:00 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:11:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ void	init(t_table **table, int argc, char **argv)
 	if (is_error(argc, argv))
 		*table = NULL;
 	else
+	{
 		*table = new_table(argc, argv, n_philo);
+		create_pthread((*table)->philos, n_philo);
+		delete_pthread((*table)->philos, n_philo);
+	}
 }
 
 // void	exec(t_table *table)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/09 15:51:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:18:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ t_fork	*new_fork()
 
 t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability ability)
 {
-	t_philo	*philo;
+	t_philo		*philo;
 
 	philo = malloc(sizeof(t_philo));
 	if (philo == NULL)
 		return (NULL);
 	philo->id = id;
-	philo->left_fork = left;
-	philo->right_fork = right;
+	philo->left = left;
+	philo->right = right;
 	philo->ability = ability;
 	return (philo);
 }
