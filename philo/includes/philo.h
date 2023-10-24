@@ -6,18 +6,18 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/15 11:10:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/24 09:44:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# define MESSAGE_TAKEN_A_FORK "timestamp_in_ms X has taken a fork"
-# define MESSAGE_EATING "timestamp_in_ms X is eating"
-# define MESSAGE_SLEEPING "timestamp_in_ms X is sleeping"
-# define MESSAGE_THINKING "timestamp_in_ms X is thinking"
-# define MESSAGE_DIED "timestamp_in_ms X died"
+# define MESSAGE_TAKEN_A_FORK "%d %ld has taken a fork\n"
+# define MESSAGE_EATING "%d %ld is eating\n"
+# define MESSAGE_SLEEPING "%d %ld is sleeping\n"
+# define MESSAGE_THINKING "%d %ld is thinking\n"
+# define MESSAGE_DIED "%d %ld died\n"
 
 #include <stdio.h>
 #include <pthread.h>
@@ -32,6 +32,10 @@
 // 	THINKING,
 // 	DIED
 // }
+
+// typedef enum e_error_mes {
+	
+// }	t_error_mes;
 
 typedef struct e_philo_ability {
 	int		die_time;
@@ -48,10 +52,13 @@ typedef struct e_fork {
 typedef struct e_philo {
 	int				id;
 	pthread_t		living;
+	bool			is_dead;
+	bool			is_error;
 	struct e_fork	*left;
 	struct e_fork	*right;
 	t_philo_ability	ability;
-	long			time_of_birth;
+	long			birth_time;
+	long			last_eat_time;
 }	t_philo;
 
 typedef struct e_table {
@@ -71,6 +78,11 @@ t_fork	*new_fork();
 t_philo	**create_philos(t_fork **forks, int n_philo, t_philo_ability ability);
 t_fork	**create_forks(int n_philo);
 void	create_pthread(t_philo **philos, int n_philo);
+
+long	get_ms();
+long	get_elapsed_ms(long start_ms);
+void	dying_message(t_philo *philo);
+void	eating(t_philo *philo);
 
 // delete.c
 void	delete_table(t_table *table);
