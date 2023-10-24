@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/24 09:44:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:51:22 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 // }	t_error_mes;
 
 typedef struct e_philo_ability {
+	int		n_philos;
 	int		die_time;
 	int		eat_time;
 	int		sleep_time;
@@ -75,21 +76,22 @@ t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability abili
 t_fork	*new_fork();
 
 // create.c
-t_philo	**create_philos(t_fork **forks, int n_philo, t_philo_ability ability);
-t_fork	**create_forks(int n_philo);
-void	create_pthread(t_philo **philos, int n_philo);
+t_philo_ability	new_philo_ability(int argc, char **argv);
+t_philo			**create_philos(t_philo_ability ability);
+t_fork			**create_forks(int n_philo);
+void			create_pthread(t_philo **philos);
 
-long	get_ms();
-long	get_elapsed_ms(long start_ms);
-void	dying_message(t_philo *philo);
-void	eating(t_philo *philo);
+long			get_ms();
+long			get_elapsed_ms(long start_ms);
+void			dying_message(t_philo *philo);
+void			eating(t_philo *philo);
 
 // delete.c
-void	delete_table(t_table *table);
-void	delete_forks(t_fork **forks);
-void	delete_philos(t_philo **philos);
-void	delete_pthread(t_philo **philo, int n_philo);
+void			delete_table(t_table *table);
+void			delete_forks(t_fork **forks);
+void			delete_philos(t_philo **philos);
+void			delete_pthread(t_philo **philo);
 
-int		ft_atoi(const char *str);
-size_t	ft_strlen(const char *str);
+int				ft_atoi(const char *str);
+size_t			ft_strlen(const char *str);
 #endif
