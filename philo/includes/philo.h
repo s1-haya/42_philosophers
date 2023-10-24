@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/24 15:51:22 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:21:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,28 @@ typedef struct e_fork {
 	bool			is_used;
 }	t_fork;
 
+
+typedef struct e_table {
+	size_t		n_philos_ate;
+	bool		is_error;
+	long		start_time;
+}	t_table;
+
 typedef struct e_philo {
 	int				id;
 	pthread_t		living;
-	bool			is_dead;
-	bool			is_error;
 	struct e_fork	*left;
 	struct e_fork	*right;
+	bool			is_dead;
 	t_philo_ability	ability;
-	long			birth_time;
 	long			last_eat_time;
+	struct e_table	table;
 }	t_philo;
-
-typedef struct e_table {
-	t_fork		**forks;
-	t_philo		**philos;
-	long		starting_time;
-}	t_table;
 
 void	printf_debug_table(t_table *table);
 
 // new.c
-t_table	*new_table(int argc, char **argv, int n_philo);
+t_table	new_table();
 t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability ability);
 t_fork	*new_fork();
 
@@ -87,7 +87,6 @@ void			dying_message(t_philo *philo);
 void			eating(t_philo *philo);
 
 // delete.c
-void			delete_table(t_table *table);
 void			delete_forks(t_fork **forks);
 void			delete_philos(t_philo **philos);
 void			delete_pthread(t_philo **philo);

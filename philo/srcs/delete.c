@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:57:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/24 15:43:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:21:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,9 @@ void	delete_philos(t_philo **philos)
 	free(philos);
 }
 
-void	delete_table(t_table *table)
-{
-	// delete_pthread();
-	// delete_mutex();
-	delete_forks(table->forks);
-	delete_philos(table->philos);
-	free(table);
-}
+// void	delete_table(t_table *table)
+// {
+// 	// delete_pthread();
+// 	// delete_mutex();
+// 	free(table);
+// }

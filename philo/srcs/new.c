@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/24 15:56:42 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:21:33 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,11 @@ t_philo_ability	new_philo_ability(int argc, char **argv)
 	return (philo_ability);
 }
 
-// t_table	*new_table(int argc, char **argv, int n_philo)
-// {
-// 	t_table			*table;
+t_table	new_table()
+{
+	t_table	table;
 
-// 	table = malloc(sizeof(t_table));
-// 	if (table == NULL)
-// 		return (NULL);
-// 	return (table);
-// }
+	table.n_philos_ate = 0;
+	table.is_error = false;
+	return (table);
+}

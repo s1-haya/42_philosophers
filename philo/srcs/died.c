@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   died.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:52:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/24 09:24:10 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:22:16 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 // void	check_philo_died();
 void	dying_message(t_philo *philo)
 {
-	printf(MESSAGE_DIED, philo->id, get_elapsed_ms(philo->birth_time));
+	printf(MESSAGE_DIED, philo->id, get_elapsed_ms(philo->table.start_time));
 }

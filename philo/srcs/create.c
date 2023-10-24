@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/24 15:56:27 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:21:22 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_info(t_philo *philo, char *mes)
 		perror("pthread_mutex_lock");
 		exit(0);
 	}
-	printf(mes, get_elapsed_ms(philo->birth_time), philo->id);
+	printf(mes, get_elapsed_ms(philo->table.start_time), philo->id);
 	if (pthread_mutex_unlock(&(philo->right->fork)) != 0) {                                      
 		perror("pthread_mutex_unlock() error");                                     
 		exit(0);                                                                    
@@ -55,8 +55,10 @@ void	*test_pthread(void *arg)
 		usleep(philo->ability.sleep_time * 1000);
 		// sleeping(philo);
 		// thinking(philo);
-		if (philo->is_dead || philo->is_error)
+		if (philo->is_dead)
 			dying_message(philo);
+		// if (philo->table.is_error)
+		// 	prin
 	}
 	return (philo);
 }
@@ -65,14 +67,17 @@ void	create_pthread(t_philo **philos)
 {
 	int				i;
 	int				p_create;
-	long			starting_time;
+	long			start_time;
+	t_table			table;
 
-	starting_time = get_ms();
+	start_time = get_ms();
+	table = new_table();
 	i = 0;
 	while (philos[i] != NULL)
 	{
-		philos[i]->birth_time = starting_time;
-		philos[i]->last_eat_time = starting_time;
+		philos[i]->table = table;
+		philos[i]->last_eat_time = start_time;
+		philos[i]->table.start_time = start_time;
 		p_create = pthread_create(&philos[i]->living, NULL, test_pthread, philos[i]);
 		printf("id: %d, n_philos: %d\n", i, philos[i]->ability.n_philos);
 		if (p_create != 0)
