@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 13:00:37 by hsawamur          #+#    #+#              #
-#    Updated: 2023/10/24 09:23:58 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/10/27 15:08:58 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ SRCS = $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/new.c \
 		$(SRCS_DIR)/delete.c \
 		$(SRCS_DIR)/eating.c \
+		$(SRCS_DIR)/sleeping.c \
+		$(SRCS_DIR)/thinking.c \
 		$(SRCS_DIR)/died.c \
 		$(SRCS_DIR)/ft_strlen.c \
 		$(SRCS_DIR)/ft_atoi.c \

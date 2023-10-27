@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/24 16:21:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:08:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct e_fork {
 typedef struct e_table {
 	size_t		n_philos_ate;
 	bool		is_error;
+	bool		is_dead;
 	long		start_time;
 }	t_table;
 
@@ -62,7 +63,6 @@ typedef struct e_philo {
 	pthread_t		living;
 	struct e_fork	*left;
 	struct e_fork	*right;
-	bool			is_dead;
 	t_philo_ability	ability;
 	long			last_eat_time;
 	struct e_table	table;
@@ -85,6 +85,9 @@ long			get_ms();
 long			get_elapsed_ms(long start_ms);
 void			dying_message(t_philo *philo);
 void			eating(t_philo *philo);
+void			sleeping(t_philo *philo);
+void			thinking(t_philo *philo);
+void	print_info(t_philo *philo, char *mes);
 
 // delete.c
 void			delete_forks(t_fork **forks);

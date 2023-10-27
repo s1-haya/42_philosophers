@@ -33,9 +33,9 @@ void	printf_debug_philos(t_philo **philos)
 	}
 }
 
-void	printf_debug_table(t_table *table)
-{
-	if (table != NULL)
-		printf_debug_philos(table->philos);
-	// printf_debug_fork(table.forks);
-}
+// void	printf_debug_table(t_table *table)
+// {
+// 	if (table != NULL)
+// 		printf_debug_philos(table->philos);
+// 	// printf_debug_fork(table.forks);
+// }
