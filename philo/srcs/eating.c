@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eating.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:47:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/24 09:49:27 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:56:05 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,23 @@ void	time_to_eat(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	// try_pthread_mutex_lock(philo);
-	if (philo->left->is_used || philo->right->is_used)
+	if (philo->left->is_used || philo->right->is_used
+		|| philo->table.is_dead || philo->table.is_error)
 		return ;
 	printf("waiting N %d...\n", philo->id);
-	time_to_eat(philo);
 	if (pthread_mutex_lock(&(philo->right->fork)) != 0){
 		perror("pthread_mutex_lock");
 		exit(0);
 	}
+	print_info(philo, MESSAGE_TAKEN_A_FORK);
+	philo->right->is_used = true;
 	if (pthread_mutex_lock(&(philo->left->fork)) != 0){
 		perror("pthread_mutex_lock");
 		exit(0);
 	}
-	// philo->left->is_used = true;
-	// philo->right->is_used = true;
-	//　時間はlockの外でやってstatusだけは中でやる。
-	// そうすることによってstatusがはんていにな
+	print_info(philo, MESSAGE_TAKEN_A_FORK);
+	philo->left->is_used = true;
+	time_to_eat(philo);
 	if (pthread_mutex_unlock(&(philo->right->fork)) != 0) {                                      
 		perror("pthread_mutex_unlock() error");                                     
 		exit(0);                                                                    

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/24 16:21:22 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:10:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	*test_pthread(void *arg)
 	while (1)
 	{
 		eating(philo);
-		usleep(philo->ability.sleep_time * 1000);
-		// sleeping(philo);
-		// thinking(philo);
-		if (philo->is_dead)
-			dying_message(philo);
+		sleeping(philo);
+		thinking(philo);
+		if (philo->table.is_dead || philo->table.is_error)
+			break ;
+		philo->table.is_dead = true;
 		// if (philo->table.is_error)
 		// 	prin
 	}
