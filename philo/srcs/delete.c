@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   delete.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:57:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/15 11:12:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:21:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	delete_pthread(t_philo **philo, int n_philo)
+void	delete_pthread(t_philo **philos)
 {
 	int		p_join;
 	int		i;
 	char	*ret;
 
 	i = 0;
-	while (i < n_philo)
+	while (philos[i] != NULL)
 	{
-		p_join = pthread_join(philo[i]->living, (void **)&ret);
+		p_join = pthread_join(philos[i]->living, (void **)&ret);
 		if (p_join == 0)
 			printf("finish ID %d, %s\n", i, ret);
 		else
@@ -68,11 +68,9 @@ void	delete_philos(t_philo **philos)
 	free(philos);
 }
 
-void	delete_table(t_table *table)
-{
-	// delete_pthread();
-	// delete_mutex();
-	delete_forks(table->forks);
-	delete_philos(table->philos);
-	free(table);
-}
+// void	delete_table(t_table *table)
+// {
+// 	// delete_pthread();
+// 	// delete_mutex();
+// 	free(table);
+// }

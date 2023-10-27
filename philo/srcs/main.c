@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/15 11:11:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:51:41 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 // bool	is_error(int argc, char **argv);
+
+#define ERROR_MES_INVALID_ARGUMENT "Invalid argument\n"
+#define ERROR_MES_FAILD_INIT "Initialization faild\n"
 
 bool	is_error(int argc, char **argv)
 {
@@ -22,36 +25,39 @@ bool	is_error(int argc, char **argv)
 	return (false);
 }
 
-void	init(t_table **table, int argc, char **argv)
+t_philo	**set_philos(int argc, char **argv)
 {
-	int	n_philo;
+	t_philo	**philos;
 
-	n_philo = atoi(argv[1]);
 	if (is_error(argc, argv))
-		*table = NULL;
+	{
+		philos = NULL;
+		printf(ERROR_MES_INVALID_ARGUMENT);
+	}
 	else
 	{
-		*table = new_table(argc, argv, n_philo);
-		create_pthread((*table)->philos, n_philo);
-		delete_pthread((*table)->philos, n_philo);
+		philos = create_philos(new_philo_ability(argc, argv));
+		if (philos == NULL)
+			printf(ERROR_MES_FAILD_INIT);
 	}
+	return (philos);
 }
 
-// void	exec(t_table *table)
+// void	exec(t_table *philos)
 // {
-// 	create_pthread(table);
+// 	create_pthread(philos);
 // }
 
 int main(int argc, char **argv)
 {
-	t_table	*table;
+	t_philo	**philos;
 
-	init(&table, argc, argv);
-	// exit(0);
-	printf_debug_table(table);
-	// exec(table);
-	delete_table(table);
-	// free_table(table);
+	philos = set_philos(argc, argv);
+	if (philos == NULL)
+		return (1);
+	create_pthread(philos);
+	delete_pthread(philos);
+	delete_philos(philos);
 	return (0);
 }
 

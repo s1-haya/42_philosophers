@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/15 11:18:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:21:33 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability abili
 	return (philo);
 }
 
-static t_philo_ability	new_philo_ability(int argc, char **argv)
+t_philo_ability	new_philo_ability(int argc, char **argv)
 {
 	t_philo_ability	philo_ability;
 
+	philo_ability.n_philos = atoi(argv[1]);
 	philo_ability.die_time = atoi(argv[2]);
 	philo_ability.eat_time = atoi(argv[3]);
 	philo_ability.sleep_time = atoi(argv[4]);
@@ -58,22 +59,11 @@ static t_philo_ability	new_philo_ability(int argc, char **argv)
 	return (philo_ability);
 }
 
-t_table	*new_table(int argc, char **argv, int n_philo)
+t_table	new_table()
 {
-	t_table			*table;
-	t_philo_ability	philo_ability;
+	t_table	table;
 
-	table = malloc(sizeof(t_table));
-	if (table == NULL)
-		return (NULL);
-	// printf("argc %d, argv %s %s %s %s %s\n",argc, argv[0], argv[1], argv[2], argv[3], argv[4]);
-	// printf("n_philo %d\n", n_philo);
-	table->forks = create_forks(n_philo);
-	if (table->forks == NULL || table->forks[0] == NULL)
-		return (NULL);
-	philo_ability = new_philo_ability(argc, argv);
-	table->philos = create_philos(table->forks, n_philo, philo_ability);
-	if (table->forks == NULL || table->philos[0] == NULL)
-		return (NULL);
+	table.n_philos_ate = 0;
+	table.is_error = false;
 	return (table);
 }
