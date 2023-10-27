@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/27 15:06:28 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:17:37 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ t_fork	*new_fork()
 
 t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability ability)
 {
-	t_philo		*philo;
+	t_philo			*philo;
+	pthread_mutex_t	mutex;
 
 	philo = malloc(sizeof(t_philo));
 	if (philo == NULL)
@@ -41,6 +42,12 @@ t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability abili
 	philo->left = left;
 	philo->right = right;
 	philo->ability = ability;
+	if (pthread_mutex_init(&mutex, NULL) != 0)
+	{
+		perror("pthread_mutex_init");
+		return (NULL);
+	}
+	philo->mes = mutex;
 	return (philo);
 }
 

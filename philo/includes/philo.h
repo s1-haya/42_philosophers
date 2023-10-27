@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/27 15:08:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:15:33 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct e_table {
 typedef struct e_philo {
 	int				id;
 	pthread_t		living;
+	pthread_mutex_t	mes;
 	struct e_fork	*left;
 	struct e_fork	*right;
 	t_philo_ability	ability;

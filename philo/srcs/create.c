@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/27 15:10:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:20:04 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ long	get_elapsed_ms(long start_ms)
 void	print_info(t_philo *philo, char *mes)
 {
 
-	if (pthread_mutex_lock(&(philo->right->fork)) != 0){
+	if (pthread_mutex_lock(&(philo->mes)) != 0){
 		perror("pthread_mutex_lock");
 		exit(0);
 	}
 	printf(mes, get_elapsed_ms(philo->table.start_time), philo->id);
-	if (pthread_mutex_unlock(&(philo->right->fork)) != 0) {                                      
+	if (pthread_mutex_unlock(&(philo->mes)) != 0) {                                      
 		perror("pthread_mutex_unlock() error");                                     
 		exit(0);                                                                    
 	}
@@ -79,7 +79,7 @@ void	create_pthread(t_philo **philos)
 		philos[i]->last_eat_time = start_time;
 		philos[i]->table.start_time = start_time;
 		p_create = pthread_create(&philos[i]->living, NULL, test_pthread, philos[i]);
-		printf("id: %d, n_philos: %d\n", i, philos[i]->ability.n_philos);
+		// printf("id: %d, n_philos: %d\n", i, philos[i]->ability.n_philos);
 		if (p_create != 0)
 		{
 			write(2, ERROR_MES_CREATE_THREAD, ft_strlen(ERROR_MES_CREATE_THREAD));
