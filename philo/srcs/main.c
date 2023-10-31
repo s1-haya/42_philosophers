@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/24 15:51:41 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/30 20:38:43 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 bool	is_error(int argc, char **argv)
 {
 	(void)argv;
-	if (argc != 4 && argc != 5)
+	// printf("argc %d\n", argc);
+	if (argc != 5 && argc != 6)
 		return (true);
 	return (false);
 }
@@ -43,13 +44,9 @@ t_philo	**set_philos(int argc, char **argv)
 	return (philos);
 }
 
-// void	exec(t_table *philos)
-// {
-// 	create_pthread(philos);
-// }
-
 int main(int argc, char **argv)
 {
+	//以下にスコープを減らせるか検討
 	t_philo	**philos;
 
 	philos = set_philos(argc, argv);

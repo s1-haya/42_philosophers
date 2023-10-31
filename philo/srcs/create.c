@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/27 15:10:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:28:17 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,50 +15,49 @@
 
 #define ERROR_MES_CREATE_THREAD "pthread fail"
 
-long	get_ms()
+long	get_usec()
 {
 	struct timeval tv;
 
 	if (gettimeofday(&tv, NULL) == -1)
 		return (-1);
-	return (tv.tv_sec + tv.tv_usec / 1000);
+	return (tv.tv_sec * 1000000 + tv.tv_usec);
 }
 
-long	get_elapsed_ms(long start_ms)
+long	get_elapsed_ms(long start_usec)
 {
-	return (get_ms() - start_ms);
+	if (get_usec() == -1)
+		return (-1);
+	return ((get_usec() - start_usec) / 1000);
 }
 
 void	print_info(t_philo *philo, char *mes)
 {
 
-	if (pthread_mutex_lock(&(philo->right->fork)) != 0){
+	if (pthread_mutex_lock(&(philo->mes)) != 0){
 		perror("pthread_mutex_lock");
 		exit(0);
 	}
-	printf(mes, get_elapsed_ms(philo->table.start_time), philo->id);
-	if (pthread_mutex_unlock(&(philo->right->fork)) != 0) {                                      
+	if (!(philo->table->is_dead || philo->table->is_error))
+		printf(mes, get_elapsed_ms(philo->table->start_time), philo->id);
+	if (pthread_mutex_unlock(&(philo->mes)) != 0) {                                      
 		perror("pthread_mutex_unlock() error");                                     
 		exit(0);                                                                    
 	}
 }
-
 
 void	*test_pthread(void *arg)
 {
 	t_philo			*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 != 0)
+		usleep(500);
 	while (1)
 	{
-		eating(philo);
-		sleeping(philo);
-		thinking(philo);
-		if (philo->table.is_dead || philo->table.is_error)
+		// printf("last_eat_time %ld\n", philo->table->start_time);
+		if (eating(philo) || sleeping(philo) || thinking(philo))
 			break ;
-		philo->table.is_dead = true;
-		// if (philo->table.is_error)
-		// 	prin
 	}
 	return (philo);
 }
@@ -68,18 +67,20 @@ void	create_pthread(t_philo **philos)
 	int				i;
 	int				p_create;
 	long			start_time;
-	t_table			table;
+	t_table			*table;
 
-	start_time = get_ms();
+	start_time = get_usec();
 	table = new_table();
 	i = 0;
 	while (philos[i] != NULL)
 	{
 		philos[i]->table = table;
 		philos[i]->last_eat_time = start_time;
-		philos[i]->table.start_time = start_time;
+		// printf("last_eat_time %ld\n", start_time);
+		philos[i]->table->start_time = start_time;
+		// printf("last_eat_time %ld\n", philos[i]->table->start_time);
 		p_create = pthread_create(&philos[i]->living, NULL, test_pthread, philos[i]);
-		printf("id: %d, n_philos: %d\n", i, philos[i]->ability.n_philos);
+		// printf("id: %d, n_philos: %d\n", i, philos[i]->ability.n_philos);
 		if (p_create != 0)
 		{
 			write(2, ERROR_MES_CREATE_THREAD, ft_strlen(ERROR_MES_CREATE_THREAD));
@@ -114,7 +115,7 @@ t_philo	**create_philos(t_philo_ability ability)
 {
 	t_philo			**philos;
 	t_fork			**forks;
-	int		i;
+	int				i;
 
 	philos = malloc(sizeof(t_philo) * ability.n_philos + 1);
 	forks = create_forks(ability.n_philos);
