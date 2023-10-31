@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 15:48:03 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:57:41 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,5 @@ void			delete_pthread(t_philo **philo);
 
 int				ft_atoi(const char *str);
 size_t			ft_strlen(const char *str);
+void		p_usleep(int end_time);
 #endif

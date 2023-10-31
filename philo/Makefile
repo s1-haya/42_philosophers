@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 13:00:37 by hsawamur          #+#    #+#              #
-#    Updated: 2023/10/30 20:24:59 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/10/31 16:57:57 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS = $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/died.c \
 		$(SRCS_DIR)/ft_strlen.c \
 		$(SRCS_DIR)/ft_atoi.c \
+		$(SRCS_DIR)/p_usleep.c \
 		$(SRCS_DIR)/debug.c \
 
 OBJS_DIR = objs

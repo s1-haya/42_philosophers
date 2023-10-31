@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:47:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 16:20:09 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:59:32 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	time_to_eat(t_philo *philo)
 		pthread_mutex_unlock(&(philo->table->n_eat_log));
 	}
 	print_info(philo, MESSAGE_EATING);
-	usleep(philo->ability.eat_time * 1000);
+	p_usleep(philo->ability.eat_time * 1000);
 	if (check_philo_ate(philo->table->n_philos_ate, philo->ability.eat_count)
 		|| check_philo_died(philo))
 		return (true);
@@ -67,14 +67,8 @@ bool	time_to_eat(t_philo *philo)
 
 bool	eating(t_philo *philo)
 {
-	// bool	flag;
 	int	counter;
 
-	// flag = true;
-	// if (philo->right->is_used || philo->left->is_used
-	// 	|| philo->table->is_dead || philo->table->is_error)
-	// 	return ;
-	// philo->table->is_dead = true;
 	counter = 0;
 	while (counter != 2)
 	{
@@ -149,5 +143,4 @@ bool	eating(t_philo *philo)
 			return (true);
 	}
 	return (time_to_eat(philo));
-	// printf("pthread N %d\n", philo->id);
 }
