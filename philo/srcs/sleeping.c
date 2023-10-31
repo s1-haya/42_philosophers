@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sleeping.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:50:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/30 18:59:50 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:17:33 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ bool	sleeping(t_philo *philo)
 	}
 	print_info(philo, MESSAGE_SLEEPING);
 	usleep(philo->ability.sleep_time * 1000);
-	return (check_philo_died(philo));
+	return (check_philo_ate(philo->table->n_philos_ate, philo->ability.eat_count)
+		|| check_philo_died(philo));
 }

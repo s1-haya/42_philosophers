@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 15:34:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:48:03 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct e_table {
 	bool			is_dead;
 	long			start_time;
 	pthread_mutex_t	mes;
+	pthread_mutex_t	n_eat_log;
 }	t_table;
 
 typedef struct e_philo {

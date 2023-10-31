@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 15:36:41 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:47:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ t_philo_ability	new_philo_ability(int argc, char **argv)
 t_table	*new_table()
 {
 	t_table			*table;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	mes;
+	pthread_mutex_t	n_eat_log;
 
 	table = malloc(sizeof(t_table));
 	if (table == NULL)
@@ -71,8 +72,11 @@ t_table	*new_table()
 	table->n_philos_ate = 0;
 	table->is_error = false;
 	table->is_dead = false;
-	if (pthread_mutex_init(&mutex, NULL))
+	if (pthread_mutex_init(&mes, NULL))
 		return (NULL);
-	table->mes = mutex;
+	table->mes = mes;
+	if (pthread_mutex_init(&n_eat_log, NULL))
+		return (NULL);
+	table->n_eat_log = n_eat_log;
 	return (table);
 }
