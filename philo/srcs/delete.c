@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:57:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/30 17:04:33 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:38:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	delete_pthread(t_philo **philos)
 	while (philos[i] != NULL)
 	{
 		p_join = pthread_join(philos[i]->living, (void **)&ret);
-		if (p_join == 0)
-			printf("finish ID %d, %s\n", i, ret);
-		else
+		if (p_join != 0)
 		{
 			perror("pthread_join");
 			return ;

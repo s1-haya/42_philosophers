@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   died.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:52:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/30 19:01:23 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:36:52 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ bool	check_philo_died(t_philo *philo)
 {
 	if (get_elapsed_ms(philo->last_eat_time) >= philo->ability.die_time)
 	{
-		if (pthread_mutex_lock(&(philo->mes)) != 0){
+		if (pthread_mutex_lock(&(philo->table->mes)) != 0){
 			perror("pthread_mutex_lock");
 			exit(0);
 		}
 		if (!philo->table->is_dead)
 			dying_message(philo);
 		philo->table->is_dead = true;
-		if (pthread_mutex_unlock(&(philo->mes)) != 0) {                                      
+		if (pthread_mutex_unlock(&(philo->table->mes)) != 0) {                                      
 			perror("pthread_mutex_unlock() error");                                     
 			exit(0);                                                                    
 		}

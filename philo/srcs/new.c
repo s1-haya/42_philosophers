@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/30 20:46:01 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:47:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_fork	*new_fork()
 t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability ability)
 {
 	t_philo			*philo;
-	pthread_mutex_t	mutex;
 
 	philo = malloc(sizeof(t_philo));
 	if (philo == NULL)
@@ -43,12 +42,6 @@ t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability abili
 	philo->right = right;
 	philo->ability = ability;
 	philo->is_eat = false;
-	if (pthread_mutex_init(&mutex, NULL))
-	{
-		perror("pthread_mutex_init");
-		return (NULL);
-	}
-	philo->mes = mutex;
 	return (philo);
 }
 
@@ -69,7 +62,9 @@ t_philo_ability	new_philo_ability(int argc, char **argv)
 
 t_table	*new_table()
 {
-	t_table	*table;
+	t_table			*table;
+	pthread_mutex_t	mes;
+	pthread_mutex_t	n_eat_log;
 
 	table = malloc(sizeof(t_table));
 	if (table == NULL)
@@ -77,5 +72,11 @@ t_table	*new_table()
 	table->n_philos_ate = 0;
 	table->is_error = false;
 	table->is_dead = false;
+	if (pthread_mutex_init(&mes, NULL))
+		return (NULL);
+	table->mes = mes;
+	if (pthread_mutex_init(&n_eat_log, NULL))
+		return (NULL);
+	table->n_eat_log = n_eat_log;
 	return (table);
 }
