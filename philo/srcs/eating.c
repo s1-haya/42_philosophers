@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:47:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/30 19:11:45 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:15:25 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ bool	eating(t_philo *philo)
 				perror("pthread_mutex_lock");
 				exit(0);
 			}
-			if (!philo->left->is_used)
+			if (!philo->left->is_used && (!philo->table->is_dead))
 			{
 				print_info(philo, MESSAGE_TAKEN_A_FORK_LEFT);
 				philo->left->is_used = true;
@@ -92,7 +92,7 @@ bool	eating(t_philo *philo)
 				perror("pthread_mutex_lock");
 				exit(0);
 			}
-			if (!philo->right->is_used)
+			if (!philo->right->is_used && (!philo->table->is_dead))
 			{
 				print_info(philo, MESSAGE_TAKEN_A_FORK_RIGHT);
 				philo->right->is_used = true;
@@ -109,7 +109,7 @@ bool	eating(t_philo *philo)
 				perror("pthread_mutex_lock");
 				exit(0);
 			}
-			if (!philo->right->is_used)
+			if (!philo->right->is_used && (!philo->table->is_dead))
 			{
 				print_info(philo, MESSAGE_TAKEN_A_FORK_RIGHT);
 				philo->right->is_used = true;
@@ -123,7 +123,7 @@ bool	eating(t_philo *philo)
 				perror("pthread_mutex_lock");
 				exit(0);
 			}
-			if (!philo->left->is_used)
+			if (!philo->left->is_used && (!philo->table->is_dead))
 			{
 				print_info(philo, MESSAGE_TAKEN_A_FORK_LEFT);
 				philo->left->is_used = true;

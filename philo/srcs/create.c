@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/30 20:47:00 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:28:17 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	*test_pthread(void *arg)
 	t_philo			*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 != 0)
+		usleep(500);
 	while (1)
 	{
 		// printf("last_eat_time %ld\n", philo->table->start_time);
