@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/30 20:45:31 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:34:43 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ typedef struct e_fork {
 
 
 typedef struct e_table {
-	int			n_philos_ate;
-	bool		is_error;
-	bool		is_dead;
-	long		start_time;
+	int				n_philos_ate;
+	bool			is_error;
+	bool			is_dead;
+	long			start_time;
+	pthread_mutex_t	mes;
 }	t_table;
 
 typedef struct e_philo {
 	int				id;
 	pthread_t		living;
-	pthread_mutex_t	mes;
 	struct e_fork	*left;
 	struct e_fork	*right;
 	t_philo_ability	ability;

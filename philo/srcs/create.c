@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 10:28:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:36:18 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ long	get_elapsed_ms(long start_usec)
 void	print_info(t_philo *philo, char *mes)
 {
 
-	if (pthread_mutex_lock(&(philo->mes)) != 0){
+	if (pthread_mutex_lock(&(philo->table->mes)) != 0){
 		perror("pthread_mutex_lock");
 		exit(0);
 	}
 	if (!(philo->table->is_dead || philo->table->is_error))
 		printf(mes, get_elapsed_ms(philo->table->start_time), philo->id);
-	if (pthread_mutex_unlock(&(philo->mes)) != 0) {                                      
+	if (pthread_mutex_unlock(&(philo->table->mes)) != 0) {                                      
 		perror("pthread_mutex_unlock() error");                                     
 		exit(0);                                                                    
 	}
