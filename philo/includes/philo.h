@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 16:57:41 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:58:29 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ typedef struct e_fork {
 	bool			is_used;
 }	t_fork;
 
-
 typedef struct e_table {
 	int				n_philos_ate;
 	bool			is_error;
 	bool			is_dead;
 	long			start_time;
+	t_philo_ability	ability;
 	pthread_mutex_t	mes;
 	pthread_mutex_t	n_eat_log;
 }	t_table;
@@ -54,17 +54,16 @@ typedef struct e_philo {
 	pthread_t		living;
 	struct e_fork	*left;
 	struct e_fork	*right;
-	t_philo_ability	ability;
 	long			last_eat_time;
 	bool			is_eat;
-	struct e_table	*table;
+	t_table			*table;
 }	t_philo;
 
 void	printf_debug_table(t_table *table);
 
 // new.c
 t_table	*new_table();
-t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability ability);
+t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_table *table);
 t_fork	*new_fork();
 
 // create.c
@@ -84,9 +83,10 @@ bool			check_philo_died(t_philo *philo);
 bool			check_philo_ate(int n_philos_ate, int eat_count);
 
 // delete.c
-void			delete_forks(t_fork **forks);
 void			delete_philos(t_philo **philos);
-void			delete_pthread(t_philo **philo);
+void			delete_forks(t_fork **forks);
+void			delete_table(t_table *table);
+void			delete_pthread(t_philo **philo, int i);
 
 int				ft_atoi(const char *str);
 size_t			ft_strlen(const char *str);

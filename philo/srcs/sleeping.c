@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sleeping.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:50:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 16:59:22 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:00:03 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	sleeping(t_philo *philo)
 {
-	if (check_philo_ate(philo->table->n_philos_ate, philo->ability.eat_count)
+	if (check_philo_ate(philo->table->n_philos_ate, philo->table->ability.eat_count)
 		|| check_philo_died(philo) || philo->table->is_error)
 		return (true);
 	if (!(philo->right->is_used && philo->left->is_used))
@@ -38,7 +38,7 @@ bool	sleeping(t_philo *philo)
 		exit(0);
 	}
 	print_info(philo, MESSAGE_SLEEPING);
-	p_usleep(philo->ability.sleep_time * 1000);
-	return (check_philo_ate(philo->table->n_philos_ate, philo->ability.eat_count)
+	p_usleep(philo->table->ability.sleep_time * 1000);
+	return (check_philo_ate(philo->table->n_philos_ate, philo->table->ability.eat_count)
 		|| check_philo_died(philo));
 }
