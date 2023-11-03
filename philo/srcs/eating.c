@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eating.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:47:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 16:59:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:44:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ bool	time_to_eat(t_philo *philo)
 		pthread_mutex_unlock(&(philo->table->n_eat_log));
 	}
 	print_info(philo, MESSAGE_EATING);
+	philo->last_eat_time = get_usec();
 	p_usleep(philo->ability.eat_time * 1000);
 	if (check_philo_ate(philo->table->n_philos_ate, philo->ability.eat_count)
 		|| check_philo_died(philo))
 		return (true);
-	philo->last_eat_time = get_usec();
 	return (flag);
 	// printf("last_eat_time %ld\n", philo->table->start_time);
 	// printf("last_eat_time %ld\n", get_usec());

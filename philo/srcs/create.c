@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 16:59:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:09:13 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	create_pthread(t_philo **philos)
 		}
 		i++;
 	}
+	// 成功フラグと失敗フラグ親子かんをデータをやりとりする（子プロセスの全体の共有値）
 }
 
 t_fork	**create_forks(int n_philos)
