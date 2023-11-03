@@ -15,7 +15,7 @@ void	printf_debug_philo(t_philo *philo)
 		printf("ok left fork\n");
 	if (!philo->right->is_used)
 		printf("ok right fork\n");
-	printf_debug_philo_ability(philo->ability);
+	printf_debug_philo_ability(philo->table->ability);
 	printf("----- debug end -----\n");
 	printf("\n");
 }

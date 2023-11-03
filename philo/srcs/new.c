@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 15:47:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:38:06 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_fork	*new_fork()
 	return (fork);
 }
 
-t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability ability)
+t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_table *table)
 {
 	t_philo			*philo;
 
@@ -40,8 +40,8 @@ t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_philo_ability abili
 	philo->id = id;
 	philo->left = left;
 	philo->right = right;
-	philo->ability = ability;
 	philo->is_eat = false;
+	philo->table = table;
 	return (philo);
 }
 
@@ -60,7 +60,7 @@ t_philo_ability	new_philo_ability(int argc, char **argv)
 	return (philo_ability);
 }
 
-t_table	*new_table()
+t_table	*new_table(t_philo_ability ability)
 {
 	t_table			*table;
 	pthread_mutex_t	mes;
@@ -78,5 +78,6 @@ t_table	*new_table()
 	if (pthread_mutex_init(&n_eat_log, NULL))
 		return (NULL);
 	table->n_eat_log = n_eat_log;
+	table->ability = ability;
 	return (table);
 }

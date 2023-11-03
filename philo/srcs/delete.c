@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   delete.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:57:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/31 15:38:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:53:08 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	delete_pthread(t_philo **philos)
+void	delete_pthread(t_philo **philos, int index)
 {
 	int		p_join;
 	int		i;
 	char	*ret;
 
 	i = 0;
-	while (philos[i] != NULL)
+	while (i < index)
 	{
 		p_join = pthread_join(philos[i]->living, (void **)&ret);
 		if (p_join != 0)
@@ -66,9 +66,7 @@ void	delete_philos(t_philo **philos)
 	free(philos);
 }
 
-// void	delete_table(t_table *table)
-// {
-// 	// delete_pthread();
-// 	// delete_mutex();
-// 	free(table);
-// }
+void	delete_table(t_table *table)
+{
+	free(table);
+}
