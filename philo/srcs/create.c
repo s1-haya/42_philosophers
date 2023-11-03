@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/03 16:59:26 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/03 19:41:22 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,24 @@ void print_info(t_philo *philo, char *mes)
 
 void *test_pthread(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
+	long	start_time;
 
 	philo = (t_philo *)arg;
-	if (philo->id % 2 != 0)
-		p_usleep(500);
+	while (!philo->table->is_success)
+	{
+		if (philo->table->is_error)
+			return (NULL);
+		sleep(100);
+	}
+	start_time = get_usec();
+	philo->last_eat_time = start_time;
+	philo->table->start_time = start_time;
 	while (1)
 	{
-		// printf("last_eat_time %ld\n", philo->table->start_time);
 		if (eating(philo) || sleeping(philo) || thinking(philo))
 			break;
+		return (philo);
 	}
 	return (philo);
 }
@@ -78,10 +86,12 @@ void create_pthread(t_philo **philos)
 		{
 			write(2, ERROR_MES_CREATE_THREAD, ft_strlen(ERROR_MES_CREATE_THREAD));
 			delete_pthread(philos, i);
+			philos[i]->table->is_error = true;
 			return;
 		}
 		i++;
 	}
+	philos[0]->table->is_success = true;
 }
 
 t_fork **create_forks(int n_philos)

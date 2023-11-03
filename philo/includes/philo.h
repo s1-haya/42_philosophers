@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/03 16:58:29 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/03 19:27:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct e_fork {
 
 typedef struct e_table {
 	int				n_philos_ate;
+	bool			is_success;
 	bool			is_error;
 	bool			is_dead;
 	long			start_time;
@@ -58,8 +59,6 @@ typedef struct e_philo {
 	bool			is_eat;
 	t_table			*table;
 }	t_philo;
-
-void	printf_debug_table(t_table *table);
 
 // new.c
 t_table	*new_table();
@@ -91,4 +90,7 @@ void			delete_pthread(t_philo **philo, int i);
 int				ft_atoi(const char *str);
 size_t			ft_strlen(const char *str);
 void		p_usleep(int end_time);
+
+void	printf_debug_philos(t_philo **philos);
+void	printf_debug_table(int id, t_table *table);
 #endif

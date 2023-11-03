@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/03 16:38:06 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/03 19:09:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_table	*new_table(t_philo_ability ability)
 	if (table == NULL)
 		return (NULL);
 	table->n_philos_ate = 0;
+	table->is_success = false;
 	table->is_error = false;
 	table->is_dead = false;
 	if (pthread_mutex_init(&mes, NULL))
