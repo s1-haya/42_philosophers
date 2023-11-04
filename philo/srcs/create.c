@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/04 15:33:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:09:36 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void *test_pthread(void *arg)
 	{
 		if (philo->table->is_error)
 			return (NULL);
-		sleep(100);
+		usleep(100);
 	}
 	start_time = get_usec();
 	philo->last_eat_time = start_time;
@@ -67,7 +67,6 @@ void *test_pthread(void *arg)
 	{
 		if (eating(philo) || sleeping(philo) || thinking(philo))
 			break;
-		return (philo);
 	}
 	return (philo);
 }
