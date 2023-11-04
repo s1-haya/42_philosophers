@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/03 19:27:01 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:05:53 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct e_philo_ability {
 typedef struct e_fork {
 	pthread_mutex_t	fork;
 	bool			is_used;
+	int				last_eat_philo;
 }	t_fork;
 
 typedef struct e_table {

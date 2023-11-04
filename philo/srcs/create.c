@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/03 19:41:22 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:33:55 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,10 @@ t_fork **create_forks(int n_philos)
 			delete_forks(forks);
 			return (NULL);
 		}
+		if (i % 2 == 0)
+			forks[i]->last_eat_philo = i + 1;
+		else
+			forks[i]->last_eat_philo = i;
 		i++;
 	}
 	forks[n_philos] = NULL;
