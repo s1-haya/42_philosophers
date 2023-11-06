@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:47:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/04 16:25:42 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:03:07 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	time_to_eat(t_philo *philo)
 		printf("n_ate: expect %d, real %d\n", philo->table->ability.eat_count, philo->table->n_philos_ate);
 		pthread_mutex_unlock(&(philo->table->n_eat_log));
 	}
-	print_info(philo, MESSAGE_EATING);
 	philo->last_eat_time = get_usec();
 	p_usleep(philo->table->ability.eat_time * 1000);
 }
@@ -38,19 +37,26 @@ bool eating(t_philo *philo)
 {
 	if (check_philo_ate(philo->table->n_philos_ate, philo->table->ability.eat_count) || check_philo_died(philo) || philo->table->is_error)
 		return (true);
+	// printf("philo id: %d\n", philo->id);
+	// printf("philo left id: %d\n", philo->left->last_eat_philo);
+	// printf("philo right id: %d\n", philo->right->last_eat_philo);
 	if (philo->id == philo->left->last_eat_philo
 		|| philo->id == philo->right->last_eat_philo)
 		return (false);
-	pthread_mutex_lock(&(philo->left->fork));
-	pthread_mutex_lock(&(philo->right->fork));
 	print_info(philo, MESSAGE_TAKEN_A_FORK_LEFT);
 	print_info(philo, MESSAGE_TAKEN_A_FORK_RIGHT);
+	print_info(philo, MESSAGE_EATING);
+	time_to_eat(philo);
+	pthread_mutex_lock(&(philo->left->fork));
 	philo->left->is_used = true;
 	philo->left->last_eat_philo = philo->id;
+	pthread_mutex_unlock(&(philo->left->fork));
+	pthread_mutex_lock(&(philo->right->fork));
 	philo->right->is_used = true;
 	philo->right->last_eat_philo = philo->id;
-	time_to_eat(philo);
-	pthread_mutex_unlock(&(philo->left->fork));
 	pthread_mutex_unlock(&(philo->right->fork));
+	// printf("philo id: %d\n", philo->id);
+	// printf("philo left id: %d\n", philo->left->last_eat_philo);
+	// printf("philo right id: %d\n", philo->right->last_eat_philo);
 	return (false);
 }

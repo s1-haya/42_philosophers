@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/04 16:09:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:01:34 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ t_fork **create_forks(int n_philos)
 	int i;
 
 	forks = malloc(sizeof(t_fork) * (n_philos + 1));
+	if (forks == NULL)
+		return (NULL);
 	i = 0;
 	while (i < n_philos)
 	{
@@ -114,6 +116,8 @@ t_fork **create_forks(int n_philos)
 			forks[i]->last_eat_philo = i;
 		i++;
 	}
+	if (i % 2 != 0)
+		forks[i - 1]->last_eat_philo = i - 1;
 	forks[n_philos] = NULL;
 	return (forks);
 }
