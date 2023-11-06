@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:47:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/06 16:03:07 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:24:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	time_to_eat(t_philo *philo)
 
 bool eating(t_philo *philo)
 {
-	if (check_philo_ate(philo->table->n_philos_ate, philo->table->ability.eat_count) || check_philo_died(philo) || philo->table->is_error)
-		return (true);
 	// printf("philo id: %d\n", philo->id);
 	// printf("philo left id: %d\n", philo->left->last_eat_philo);
 	// printf("philo right id: %d\n", philo->right->last_eat_philo);
@@ -48,15 +46,19 @@ bool eating(t_philo *philo)
 	print_info(philo, MESSAGE_EATING);
 	time_to_eat(philo);
 	pthread_mutex_lock(&(philo->left->fork));
+	if (check_philo_ate(philo->table->n_philos_ate, philo->table->ability.eat_count) || check_philo_died(philo) || philo->table->is_error)
+		return (true);
 	philo->left->is_used = true;
 	philo->left->last_eat_philo = philo->id;
 	pthread_mutex_unlock(&(philo->left->fork));
 	pthread_mutex_lock(&(philo->right->fork));
+	if (check_philo_ate(philo->table->n_philos_ate, philo->table->ability.eat_count) || check_philo_died(philo) || philo->table->is_error)
+		return (true);
 	philo->right->is_used = true;
 	philo->right->last_eat_philo = philo->id;
 	pthread_mutex_unlock(&(philo->right->fork));
 	// printf("philo id: %d\n", philo->id);
 	// printf("philo left id: %d\n", philo->left->last_eat_philo);
 	// printf("philo right id: %d\n", philo->right->last_eat_philo);
-	return (false);
+	return (check_philo_ate(philo->table->n_philos_ate, philo->table->ability.eat_count) || check_philo_died(philo) || philo->table->is_error);
 }
