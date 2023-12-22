@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/04 15:05:53 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/21 21:13:31 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct e_table {
 	long			start_time;
 	t_philo_ability	ability;
 	pthread_mutex_t	mes;
-	pthread_mutex_t	n_eat_log;
+	pthread_mutex_t	table;
 }	t_table;
 
 typedef struct e_philo {
@@ -71,7 +71,12 @@ t_philo_ability	new_philo_ability(int argc, char **argv);
 t_philo			**create_philos(t_philo_ability ability);
 t_fork			**create_forks(int n_philo);
 void			create_pthread(t_philo **philos);
-
+bool			is_philo_id(int id, t_fork *fork);
+int 			read_last_eat_philo_id(t_fork *fork);
+bool			read_is_dead(t_table *table);
+bool			read_is_success(t_table *table);
+bool			read_is_error(t_table *table);
+long			read_start_time(t_table *table);
 long			get_usec();
 long			get_elapsed_ms(long start_ms);
 void			dying_message(t_philo *philo);
@@ -90,7 +95,7 @@ void			delete_pthread(t_philo **philo, int i);
 
 int				ft_atoi(const char *str);
 size_t			ft_strlen(const char *str);
-void		p_usleep(int end_time);
+void			p_usleep(int end_time);
 
 void	printf_debug_philos(t_philo **philos);
 void	printf_debug_table(int id, t_table *table);

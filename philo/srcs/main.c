@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/03 16:29:31 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:33:18 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int main(int argc, char **argv)
 	philos = set_philos(argc, argv);
 	if (philos == NULL)
 		return (1);
+	// printf_debug_philos(philos);
+	// exit(0);
 	create_pthread(philos);
 	delete_pthread(philos, philos[0]->table->ability.n_philos);
 	delete_philos(philos);

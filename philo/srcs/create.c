@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/06 16:01:34 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/21 21:21:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,11 @@ long get_elapsed_ms(long start_usec)
 void print_info(t_philo *philo, char *mes)
 {
 
-	if (pthread_mutex_lock(&(philo->table->mes)) != 0)
-	{
-		perror("pthread_mutex_lock");
-		exit(0);
-	}
-	if (!(philo->table->is_dead || philo->table->is_error))
-		printf(mes, get_elapsed_ms(philo->table->start_time), philo->id);
-	if (pthread_mutex_unlock(&(philo->table->mes)) != 0)
-	{
-		perror("pthread_mutex_unlock() error");
-		exit(0);
-	}
+	if (read_is_dead(philo->table)|| read_is_error(philo->table))
+		return ;
+	pthread_mutex_lock(&(philo->table->mes));
+	printf(mes, get_elapsed_ms(read_start_time(philo->table)), philo->id);
+	pthread_mutex_unlock(&(philo->table->mes));
 }
 
 void *test_pthread(void *arg)
@@ -54,15 +47,17 @@ void *test_pthread(void *arg)
 	long	start_time;
 
 	philo = (t_philo *)arg;
-	while (!philo->table->is_success)
+	while (!read_is_success(philo->table))
 	{
-		if (philo->table->is_error)
+		if (read_is_error(philo->table))
 			return (NULL);
-		usleep(100);
+		p_usleep(100);
 	}
 	start_time = get_usec();
+	pthread_mutex_lock(&philo->table->table);
 	philo->last_eat_time = start_time;
 	philo->table->start_time = start_time;
+	pthread_mutex_unlock(&philo->table->table);
 	while (1)
 	{
 		if (eating(philo) || sleeping(philo) || thinking(philo))
@@ -85,12 +80,16 @@ void create_pthread(t_philo **philos)
 		{
 			write(2, ERROR_MES_CREATE_THREAD, ft_strlen(ERROR_MES_CREATE_THREAD));
 			delete_pthread(philos, i);
+			pthread_mutex_lock(&philos[i]->table->table);
 			philos[i]->table->is_error = true;
+			pthread_mutex_unlock(&philos[i]->table->table);
 			return;
 		}
 		i++;
 	}
+	pthread_mutex_lock(&philos[0]->table->table);
 	philos[0]->table->is_success = true;
+	pthread_mutex_unlock(&philos[0]->table->table);
 }
 
 t_fork **create_forks(int n_philos)
@@ -113,11 +112,11 @@ t_fork **create_forks(int n_philos)
 		if (i % 2 == 0)
 			forks[i]->last_eat_philo = i + 1;
 		else
-			forks[i]->last_eat_philo = i;
+			forks[i]->last_eat_philo = i + 2;
 		i++;
 	}
 	if (i % 2 != 0)
-		forks[i - 1]->last_eat_philo = i - 1;
+		forks[i - 1]->last_eat_philo = i;
 	forks[n_philos] = NULL;
 	return (forks);
 }
@@ -137,7 +136,7 @@ t_philo **create_philos(t_philo_ability ability)
 	i = 0;
 	while (i < ability.n_philos)
 	{
-		philos[i] = new_philo(i, forks[i], forks[(i + 1) % ability.n_philos], table);
+		philos[i] = new_philo(i + 1, forks[i], forks[(i + 1) % ability.n_philos], table);
 		if (philos[i] == NULL || forks[i] == NULL)
 		{
 			delete_philos(philos);

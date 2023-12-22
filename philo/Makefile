@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+         #
+#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 13:00:37 by hsawamur          #+#    #+#              #
-#    Updated: 2023/10/31 16:57:57 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/12/21 21:35:14 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+DEBUGCFLAGS = -g -ggdb -fno-omit-frame-pointer -fsanitize=thread
 # CFLAGS += -MMD -MP
 # CFLAGS += -fsanitize=address -g
 
@@ -28,6 +29,7 @@ SRCS = $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/ft_strlen.c \
 		$(SRCS_DIR)/ft_atoi.c \
 		$(SRCS_DIR)/p_usleep.c \
+		$(SRCS_DIR)/read.c \
 		$(SRCS_DIR)/debug.c \
 
 OBJS_DIR = objs
@@ -53,7 +55,7 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-debug: CFLAGS += -g
+debug: CFLAGS += $(DEBUGCFLAGS)
 debug: re
 
 re: fclean all

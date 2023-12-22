@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/03 19:09:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:28:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ t_fork	*new_fork()
 	fork = malloc(sizeof(t_fork));
 	if (fork == NULL)
 		return (NULL);
-	if (pthread_mutex_init(&mutex, NULL) != 0)
-	{
-		perror("pthread_mutex_init");
+	if (pthread_mutex_init(&mutex, NULL))
 		return (NULL);
-	}
 	fork->fork = mutex;
 	fork->is_used = false;
 	return (fork);
@@ -64,7 +61,7 @@ t_table	*new_table(t_philo_ability ability)
 {
 	t_table			*table;
 	pthread_mutex_t	mes;
-	pthread_mutex_t	n_eat_log;
+	pthread_mutex_t	data;
 
 	table = malloc(sizeof(t_table));
 	if (table == NULL)
@@ -76,9 +73,9 @@ t_table	*new_table(t_philo_ability ability)
 	if (pthread_mutex_init(&mes, NULL))
 		return (NULL);
 	table->mes = mes;
-	if (pthread_mutex_init(&n_eat_log, NULL))
+	if (pthread_mutex_init(&data, NULL))
 		return (NULL);
-	table->n_eat_log = n_eat_log;
+	table->table = data;
 	table->ability = ability;
 	return (table);
 }

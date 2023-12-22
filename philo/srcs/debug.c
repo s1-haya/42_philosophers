@@ -12,10 +12,10 @@ void	printf_debug_philo(t_philo *philo)
 		return ;
 	printf("--- debug philo %d ---\n", philo->id);
 	if (!philo->left->is_used)
-		printf("ok left fork\n");
+		printf("left last_eat: %d\n", philo->left->last_eat_philo);
 	if (!philo->right->is_used)
-		printf("ok right fork\n");
-	printf_debug_philo_ability(philo->table->ability);
+		printf("right last_eat: %d\n", philo->right->last_eat_philo);
+	// printf_debug_philo_ability(philo->table->ability);
 	printf("----- debug end -----\n");
 	printf("\n");
 }
@@ -44,10 +44,9 @@ void	printf_debug_philos(t_philo **philos)
 	size_t	i;
 
 	i = 0;
+	printf_debug_table(philos[i]->id, philos[i]->table);
 	while (philos[i] != NULL)
 	{
-		printf("id %zu\n", i);
-		printf_debug_table(philos[i]->id, philos[i]->table);
 		printf_debug_philo(philos[i]);
 		i++;
 	}
