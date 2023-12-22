@@ -6,14 +6,14 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 13:00:37 by hsawamur          #+#    #+#              #
-#    Updated: 2023/12/21 21:35:14 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/12/22 15:40:52 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-DEBUGCFLAGS = -g -ggdb -fno-omit-frame-pointer -fsanitize=thread
+DEBUGCFLAGS = -g -fsanitize=thread
 # CFLAGS += -MMD -MP
 # CFLAGS += -fsanitize=address -g
 

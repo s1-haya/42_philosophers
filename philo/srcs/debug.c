@@ -48,6 +48,8 @@ void	printf_debug_philos(t_philo **philos)
 	while (philos[i] != NULL)
 	{
 		printf_debug_philo(philos[i]);
+		// if (philo->is_sleep)
+		// 	printf("ok odd\n");
 		i++;
 	}
 }

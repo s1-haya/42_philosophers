@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/21 21:13:31 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/22 18:20:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ typedef struct e_fork {
 }	t_fork;
 
 typedef struct e_table {
-	int				n_philos_ate;
 	bool			is_success;
 	bool			is_error;
 	bool			is_dead;
 	long			start_time;
+	int				n_philos_ate;
 	t_philo_ability	ability;
 	pthread_mutex_t	mes;
 	pthread_mutex_t	table;
@@ -57,7 +57,7 @@ typedef struct e_philo {
 	struct e_fork	*left;
 	struct e_fork	*right;
 	long			last_eat_time;
-	bool			is_eat;
+	int				n_ate;
 	t_table			*table;
 }	t_philo;
 

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/21 18:28:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/22 18:20:50 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_table *table)
 	philo->id = id;
 	philo->left = left;
 	philo->right = right;
-	philo->is_eat = false;
+	philo->n_ate = 0;
 	philo->table = table;
 	return (philo);
 }
@@ -66,7 +66,7 @@ t_table	*new_table(t_philo_ability ability)
 	table = malloc(sizeof(t_table));
 	if (table == NULL)
 		return (NULL);
-	table->n_philos_ate = 0;
+	table->n_philos_ate = ability.n_philos;
 	table->is_success = false;
 	table->is_error = false;
 	table->is_dead = false;

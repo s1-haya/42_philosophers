@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/21 21:21:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/22 18:21:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,30 @@ long get_elapsed_ms(long start_usec)
 void print_info(t_philo *philo, char *mes)
 {
 
-	if (read_is_dead(philo->table)|| read_is_error(philo->table))
-		return ;
 	pthread_mutex_lock(&(philo->table->mes));
-	printf(mes, get_elapsed_ms(read_start_time(philo->table)), philo->id);
+	if (!(read_is_dead(philo->table)|| read_is_error(philo->table)))
+		printf(mes, get_elapsed_ms(read_start_time(philo->table)), philo->id);
 	pthread_mutex_unlock(&(philo->table->mes));
 }
 
 void *test_pthread(void *arg)
 {
 	t_philo	*philo;
-	long	start_time;
 
 	philo = (t_philo *)arg;
 	while (!read_is_success(philo->table))
 	{
 		if (read_is_error(philo->table))
 			return (NULL);
-		p_usleep(100);
+		usleep(100);
 	}
-	start_time = get_usec();
-	pthread_mutex_lock(&philo->table->table);
-	philo->last_eat_time = start_time;
-	philo->table->start_time = start_time;
-	pthread_mutex_unlock(&philo->table->table);
+	philo->last_eat_time = philo->table->start_time;
 	while (1)
 	{
-		if (eating(philo) || sleeping(philo) || thinking(philo))
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
+		if (check_philo_died(philo))
 			break;
 	}
 	return (philo);
@@ -70,6 +67,7 @@ void create_pthread(t_philo **philos)
 {
 	int i;
 	int p_create;
+	long	start_time;
 
 	i = 0;
 	while (philos[i] != NULL)
@@ -88,6 +86,8 @@ void create_pthread(t_philo **philos)
 		i++;
 	}
 	pthread_mutex_lock(&philos[0]->table->table);
+	start_time = get_usec();
+	philos[0]->table->start_time = start_time;
 	philos[0]->table->is_success = true;
 	pthread_mutex_unlock(&philos[0]->table->table);
 }
