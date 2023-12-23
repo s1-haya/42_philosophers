@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/22 18:20:50 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/23 14:26:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ t_fork	*new_fork()
 	fork = malloc(sizeof(t_fork));
 	if (fork == NULL)
 		return (NULL);
-	if (pthread_mutex_init(&mutex, NULL))
-		return (NULL);
+	pthread_mutex_init(&mutex, NULL);
 	fork->fork = mutex;
 	fork->is_used = false;
 	return (fork);
@@ -70,11 +69,9 @@ t_table	*new_table(t_philo_ability ability)
 	table->is_success = false;
 	table->is_error = false;
 	table->is_dead = false;
-	if (pthread_mutex_init(&mes, NULL))
-		return (NULL);
+	pthread_mutex_init(&mes, NULL);
 	table->mes = mes;
-	if (pthread_mutex_init(&data, NULL))
-		return (NULL);
+	pthread_mutex_init(&data, NULL);
 	table->table = data;
 	table->ability = ability;
 	return (table);

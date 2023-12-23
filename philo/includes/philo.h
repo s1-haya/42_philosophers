@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/22 18:20:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:52:24 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define MESSAGE_SLEEPING "%ld %d is sleeping\n"
 # define MESSAGE_THINKING "%ld %d is thinking\n"
 # define MESSAGE_DIED "%ld %d died\n"
+# define SUCCESS 1
+# define ERROR 0
 
 #include <stdio.h>
 #include <pthread.h>
@@ -70,7 +72,9 @@ t_fork	*new_fork();
 t_philo_ability	new_philo_ability(int argc, char **argv);
 t_philo			**create_philos(t_philo_ability ability);
 t_fork			**create_forks(int n_philo);
-void			create_pthread(t_philo **philos);
+int				create_pthread(t_philo **philos);
+void			*simulation(void *arg);
+int				start_simulation(t_philo **philos);
 bool			is_philo_id(int id, t_fork *fork);
 int 			read_last_eat_philo_id(t_fork *fork);
 bool			read_is_dead(t_table *table);
@@ -88,10 +92,10 @@ bool			check_philo_died(t_philo *philo);
 bool			check_philo_ate(int n_philos_ate, int eat_count);
 
 // delete.c
+int				end_simulation(t_philo **philos, int index);
 void			delete_philos(t_philo **philos);
 void			delete_forks(t_fork **forks);
 void			delete_table(t_table *table);
-void			delete_pthread(t_philo **philo, int i);
 
 int				ft_atoi(const char *str);
 size_t			ft_strlen(const char *str);

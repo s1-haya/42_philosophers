@@ -1,46 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete.c                                           :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 14:57:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/23 15:48:21 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/12/22 19:05:38 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/12/22 19:06:20 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/time.h>
 #include "philo.h"
 
-// void	delete_
-
-void	delete_forks(t_fork **forks)
+long get_usec()
 {
-	int	i;
+	struct timeval tv;
 
-	i = 0;
-	while (forks[i] != NULL)
-	{
-		free(forks[i]);
-		i++;
-	}
-	free(forks);
+	if (gettimeofday(&tv, NULL) == -1)
+		return (-1);
+	return (tv.tv_sec * 1000000 + tv.tv_usec);
 }
 
-void	delete_philos(t_philo **philos)
+long get_elapsed_ms(long start_usec)
 {
-	int	i;
-
-	i = 0;
-	while (philos[i] != NULL)
-	{
-		free(philos[i]);
-		i++;
-	}
-	free(philos);
-}
-
-void	delete_table(t_table *table)
-{
-	free(table);
+	if (get_usec() == -1)
+		return (-1);
+	return ((get_usec() - start_usec) / 1000);
 }

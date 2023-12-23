@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/22 18:38:00 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:47:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ t_philo	**set_philos(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	//以下にスコープを減らせるか検討
 	t_philo	**philos;
 
 	philos = set_philos(argc, argv);
 	if (philos == NULL)
-		return (1);
-	create_pthread(philos);
-	delete_pthread(philos, philos[0]->table->ability.n_philos);
-	delete_philos(philos);
-	return (0);
+		return (ERROR);
+	// create_pthread(philos);
+	// wait_for_all_threads_to_finish();
+	if (start_simulation(philos) == ERROR)
+		return (ERROR);
+	return (end_simulation(philos, philos[0]->table->ability.n_philos));
 }
 
 

@@ -6,21 +6,23 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 13:00:37 by hsawamur          #+#    #+#              #
-#    Updated: 2023/12/22 15:40:52 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/12/22 19:44:49 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-DEBUGCFLAGS = -g -fsanitize=thread
+# DEBUGCFLAGS = -g -fsanitize=thread
+DEBUGCFLAGS += -g -fsanitize=leak
 # CFLAGS += -MMD -MP
 # CFLAGS += -fsanitize=address -g
 
 SRCS_DIR = srcs
 SRCS = $(SRCS_DIR)/main.c \
-		$(SRCS_DIR)/create.c \
+		$(SRCS_DIR)/simulation.c \
 		$(SRCS_DIR)/new.c \
+		$(SRCS_DIR)/create.c \
 		$(SRCS_DIR)/delete.c \
 		$(SRCS_DIR)/eating.c \
 		$(SRCS_DIR)/sleeping.c \
@@ -30,6 +32,7 @@ SRCS = $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/ft_atoi.c \
 		$(SRCS_DIR)/p_usleep.c \
 		$(SRCS_DIR)/read.c \
+		$(SRCS_DIR)/time.c \
 		$(SRCS_DIR)/debug.c \
 
 OBJS_DIR = objs

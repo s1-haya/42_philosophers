@@ -6,90 +6,35 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/22 18:21:27 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:52:10 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/time.h>
 #include "philo.h"
 
 #define ERROR_MES_CREATE_THREAD "pthread fail"
 
-long get_usec()
+int	create_pthread(t_philo **philos)
 {
-	struct timeval tv;
-
-	if (gettimeofday(&tv, NULL) == -1)
-		return (-1);
-	return (tv.tv_sec * 1000000 + tv.tv_usec);
-}
-
-long get_elapsed_ms(long start_usec)
-{
-	if (get_usec() == -1)
-		return (-1);
-	return ((get_usec() - start_usec) / 1000);
-}
-
-void print_info(t_philo *philo, char *mes)
-{
-
-	pthread_mutex_lock(&(philo->table->mes));
-	if (!(read_is_dead(philo->table)|| read_is_error(philo->table)))
-		printf(mes, get_elapsed_ms(read_start_time(philo->table)), philo->id);
-	pthread_mutex_unlock(&(philo->table->mes));
-}
-
-void *test_pthread(void *arg)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	while (!read_is_success(philo->table))
-	{
-		if (read_is_error(philo->table))
-			return (NULL);
-		usleep(100);
-	}
-	philo->last_eat_time = philo->table->start_time;
-	while (1)
-	{
-		eating(philo);
-		sleeping(philo);
-		thinking(philo);
-		if (check_philo_died(philo))
-			break;
-	}
-	return (philo);
-}
-
-void create_pthread(t_philo **philos)
-{
-	int i;
-	int p_create;
-	long	start_time;
+	int		i;
+	int		p_create;
 
 	i = 0;
 	while (philos[i] != NULL)
 	{
-		p_create = pthread_create(&philos[i]->living, NULL, test_pthread, philos[i]);
-		// printf("id: %d, n_philos: %d\n", i, philos[i]->ability.n_philos);
+		p_create = pthread_create(&philos[i]->living, NULL, simulation, philos[i]);
 		if (p_create != 0)
 		{
-			write(2, ERROR_MES_CREATE_THREAD, ft_strlen(ERROR_MES_CREATE_THREAD));
-			delete_pthread(philos, i);
+			write(STDERR_FILENO, ERROR_MES_CREATE_THREAD, ft_strlen(ERROR_MES_CREATE_THREAD));
 			pthread_mutex_lock(&philos[i]->table->table);
 			philos[i]->table->is_error = true;
 			pthread_mutex_unlock(&philos[i]->table->table);
-			return;
+			end_simulation(philos, i);
+			return (ERROR);
 		}
 		i++;
 	}
-	pthread_mutex_lock(&philos[0]->table->table);
-	start_time = get_usec();
-	philos[0]->table->start_time = start_time;
-	philos[0]->table->is_success = true;
-	pthread_mutex_unlock(&philos[0]->table->table);
+	return (SUCCESS);
 }
 
 t_fork **create_forks(int n_philos)
