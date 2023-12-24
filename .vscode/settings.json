@@ -3,6 +3,7 @@
 		"__availability": "c",
 		"__locale": "c",
 		"functional": "c",
-		"ios": "c"
+		"ios": "c",
+		"philo.h": "c"
 	}
 }

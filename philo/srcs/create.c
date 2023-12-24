@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/23 15:52:10 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/23 16:58:40 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ int	create_pthread(t_philo **philos)
 			pthread_mutex_lock(&philos[i]->table->table);
 			philos[i]->table->is_error = true;
 			pthread_mutex_unlock(&philos[i]->table->table);
-			end_simulation(philos, i);
-			return (ERROR);
+			return (i);
 		}
 		i++;
 	}
-	return (SUCCESS);
+	return (i);
 }
 
 t_fork **create_forks(int n_philos)
@@ -66,22 +65,19 @@ t_fork **create_forks(int n_philos)
 	return (forks);
 }
 
-t_philo **create_philos(t_philo_ability ability)
+t_philo **create_philos(t_fork **forks,
+						t_table *table)
 {
 	t_philo **philos;
-	t_fork **forks;
-	t_table *table;
 	int i;
 
-	philos = malloc(sizeof(t_philo) * ability.n_philos + 1);
-	forks = create_forks(ability.n_philos);
-	table = new_table(ability);
-	if (philos == NULL || forks == NULL || table == NULL)
+	philos = malloc(sizeof(t_philo) * table->ability.n_philos + 1);
+	if (philos == NULL)
 		return (NULL);
 	i = 0;
-	while (i < ability.n_philos)
+	while (i < table->ability.n_philos)
 	{
-		philos[i] = new_philo(i + 1, forks[i], forks[(i + 1) % ability.n_philos], table);
+		philos[i] = new_philo(i + 1, forks[i], forks[(i + 1) % table->ability.n_philos], table);
 		if (philos[i] == NULL || forks[i] == NULL)
 		{
 			delete_philos(philos);
@@ -91,6 +87,7 @@ t_philo **create_philos(t_philo_ability ability)
 		}
 		i++;
 	}
-	philos[ability.n_philos] = NULL;
+	philos[table->ability.n_philos] = NULL;
 	return (philos);
 }
+

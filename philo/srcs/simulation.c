@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:21:32 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/23 15:48:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/23 16:38:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,18 @@ void	*simulation(void *arg)
 int	start_simulation(t_philo **philos)
 {
 	long	start_time;
+	int		index;
 
-	if (create_pthread(philos) == ERROR)
-		return (ERROR);
-	pthread_mutex_lock(&philos[0]->table->table);
-	start_time = get_usec();
-	philos[0]->table->start_time = start_time;
-	philos[0]->table->is_success = true;
-	pthread_mutex_unlock(&philos[0]->table->table);
-	return (SUCCESS);
+	index = create_pthread(philos);
+	if (index == philos[0]->table->ability.n_philos)
+	{
+		pthread_mutex_lock(&philos[0]->table->table);
+		start_time = get_usec();
+		philos[0]->table->start_time = start_time;
+		philos[0]->table->is_success = true;
+		pthread_mutex_unlock(&philos[0]->table->table);
+	}
+	return (index);
 }
 
 int	end_simulation(t_philo **philos, int index)
@@ -66,10 +69,10 @@ int	end_simulation(t_philo **philos, int index)
 	while (i < index)
 	{
 		pthread_join(philos[i]->living, (void **)&ret);
-		if (ret == NULL)
-			return (ERROR);
 		i++;
 	}
 	delete_philos(philos);
+	if (index != philos[0]->table->ability.n_philos)
+		return (ERROR);
 	return (SUCCESS);
 }

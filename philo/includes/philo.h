@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/23 15:52:24 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/23 19:28:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_fork	*new_fork();
 
 // create.c
 t_philo_ability	new_philo_ability(int argc, char **argv);
-t_philo			**create_philos(t_philo_ability ability);
+t_philo			**create_philos(t_fork **forks, t_table *table);
 t_fork			**create_forks(int n_philo);
 int				create_pthread(t_philo **philos);
 void			*simulation(void *arg);
@@ -97,6 +97,7 @@ void			delete_philos(t_philo **philos);
 void			delete_forks(t_fork **forks);
 void			delete_table(t_table *table);
 
+int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
 size_t			ft_strlen(const char *str);
 void			p_usleep(int end_time);
