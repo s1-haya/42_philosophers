@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:49:15 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/11/03 17:00:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/22 18:19:53 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 bool	thinking(t_philo *philo)
 {
-	if (check_philo_ate(philo->table->n_philos_ate, philo->table->ability.eat_count)
-		|| check_philo_died(philo) || philo->table->is_error)
-		return (true);
 	print_info(philo, MESSAGE_THINKING);
-	return (check_philo_died(philo));
+	while ((philo->id == read_last_eat_philo_id(philo->left)
+		|| philo->id == read_last_eat_philo_id(philo->right))
+		&& !read_is_dead(philo->table))
+		usleep(300);
+	return (false);
 }

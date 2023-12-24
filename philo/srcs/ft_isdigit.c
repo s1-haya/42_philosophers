@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 13:49:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/09 14:22:30 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/01/12 19:10:33 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/01/14 12:54:05 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+int	ft_isdigit(int c)
+{
+	int	boolean;
 
-// int main(int argc, char **argv)
-// {
-// 	printf("gogogo!");
-// 	return (0);
-// }
+	if ('0' <= c && c <= '9')
+		boolean = 1;
+	else
+		boolean = 0;
+	return (boolean);
+}

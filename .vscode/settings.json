@@ -2,6 +2,8 @@
 	"files.associations": {
 		"__availability": "c",
 		"__locale": "c",
-		"functional": "c"
+		"functional": "c",
+		"ios": "c",
+		"philo.h": "c"
 	}
 }

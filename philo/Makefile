@@ -3,31 +3,37 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+         #
+#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 13:00:37 by hsawamur          #+#    #+#              #
-#    Updated: 2023/10/31 16:57:57 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/12/23 19:25:20 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+# DEBUGCFLAGS = -g -fsanitize=thread
+DEBUGCFLAGS += -g -fsanitize=leak
 # CFLAGS += -MMD -MP
 # CFLAGS += -fsanitize=address -g
 
 SRCS_DIR = srcs
 SRCS = $(SRCS_DIR)/main.c \
-		$(SRCS_DIR)/create.c \
+		$(SRCS_DIR)/simulation.c \
 		$(SRCS_DIR)/new.c \
+		$(SRCS_DIR)/create.c \
 		$(SRCS_DIR)/delete.c \
 		$(SRCS_DIR)/eating.c \
 		$(SRCS_DIR)/sleeping.c \
 		$(SRCS_DIR)/thinking.c \
 		$(SRCS_DIR)/died.c \
+		$(SRCS_DIR)/p_usleep.c \
+		$(SRCS_DIR)/read.c \
+		$(SRCS_DIR)/time.c \
+		$(SRCS_DIR)/ft_isdigit.c \
 		$(SRCS_DIR)/ft_strlen.c \
 		$(SRCS_DIR)/ft_atoi.c \
-		$(SRCS_DIR)/p_usleep.c \
 		$(SRCS_DIR)/debug.c \
 
 OBJS_DIR = objs
@@ -53,7 +59,7 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-debug: CFLAGS += -g
+debug: CFLAGS += $(DEBUGCFLAGS)
 debug: re
 
 re: fclean all

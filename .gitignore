@@ -1,6 +1,5 @@
-a.out
-philo
+philo/objs
 philo_bouns
 
-*/objs/
 test/
+.history/

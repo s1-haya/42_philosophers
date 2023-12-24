@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_usleep.c                                         :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 16:52:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/22 18:26:20 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/12/22 19:05:38 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/12/22 19:06:20 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/time.h>
 #include "philo.h"
 
-void	p_usleep(int end_time)
+long get_usec()
 {
-	long	start_time;
+	struct timeval tv;
 
-	start_time = get_usec();
-	while (end_time > (get_usec() - start_time))
-		usleep(300);
+	if (gettimeofday(&tv, NULL) == -1)
+		return (-1);
+	return (tv.tv_sec * 1000000 + tv.tv_usec);
+}
+
+long get_elapsed_ms(long start_usec)
+{
+	if (get_usec() == -1)
+		return (-1);
+	return ((get_usec() - start_usec) / 1000);
 }
