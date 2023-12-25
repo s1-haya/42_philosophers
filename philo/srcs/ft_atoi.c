@@ -6,11 +6,12 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:06:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/10/15 11:02:37 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:18:28 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
+#include <stdbool.h>
 
 static char	*ft_space(char *s)
 {
@@ -29,7 +30,7 @@ static	long	ft_plus_calu(char *str)
 	div = LONG_MAX / 10;
 	mod = LONG_MAX % 10;
 	res = 0;
-	while ('0' <= *str && *str <= '9')
+	while (*str != '\0' && ('0' <= *str && *str <= '9'))
 	{
 		n = (*str - '0');
 		if (res > div || (res == div && n > mod))
@@ -37,6 +38,8 @@ static	long	ft_plus_calu(char *str)
 		res = 10 * res + n;
 		str++;
 	}
+	if (*str != '\0')
+		return (0);
 	return (res);
 }
 

@@ -10,11 +10,11 @@ void	printf_debug_philo(t_philo *philo)
 {
 	if (philo == NULL)
 		return ;
-	printf("--- debug philo %d ---\n", philo->id);
-	if (!philo->left->is_used)
-		printf("left last_eat: %d\n", philo->left->last_eat_philo);
-	if (!philo->right->is_used)
-		printf("right last_eat: %d\n", philo->right->last_eat_philo);
+	// printf("--- debug philo %d ---\n", philo->id);
+	// if (!philo->left->is_used)
+	// 	printf("left last_eat: %d\n", philo->left->last_eat_philo);
+	// if (!philo->right->is_used)
+	// 	printf("right last_eat: %d\n", philo->right->last_eat_philo);
 	// printf_debug_philo_ability(philo->table->ability);
 	printf("----- debug end -----\n");
 	printf("\n");

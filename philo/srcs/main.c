@@ -6,45 +6,38 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/24 13:03:58 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:20:06 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// bool	is_error(int argc, char **argv);
-
-#define ERROR_MES_INVALID_ARGUMENT "Invalid argument\n"
 #define ERROR_MES_FAILD_INIT "Initialization faild\n"
 
-// bool	is_valid_n(char *str)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (str[i] != '\0')
-// 	{
-// 		if (ft_atoi(str[i]) <= 0)
-// 			return (false);
-// 		i++;
-// 	}
-// 	return (true);
-// }
-
-bool	is_error(int argc, char **argv)
+static bool	is_valid_n(int argc, char **argv)
 {
-	int	i;
+	int		i;
 
 	i = 1;
+	while (i < argc)
+	{
+		if (ft_atoi(argv[i]) <= 0)
+			return (false);
+		i++;
+	}
+	if (ft_atoi(argv[1]) == 1)
+		return (false);
+	return (true);
+}
+
+static bool	is_error(int argc, char **argv)
+{
+	printf("argc: %d\n", argc);
 	if (argc == 5 || argc == 6)
 	{
-		while (i < argc)
-		{
-			if (ft_atoi(argv[i]) <= 0)
-				return (true);
-			i++;
-		}
-		return (false);
+		if (is_valid_n(argc, argv))
+			return (false);
+		return (true);
 	}
 	return (true);
 }
@@ -69,7 +62,7 @@ t_philo	**set_philos(int argc, char **argv)
 	return (philos);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_philo	**philos;
 	int		index;
@@ -77,7 +70,8 @@ int main(int argc, char **argv)
 	philos = set_philos(argc, argv);
 	if (philos == NULL)
 	{
-		printf(ERROR_MES_FAILD_INIT);
+		write(STDERR_FILENO, ERROR_MES_FAILD_INIT,
+			ft_strlen(ERROR_MES_FAILD_INIT));
 		return (ERROR);
 	}
 	index = start_simulation(philos);

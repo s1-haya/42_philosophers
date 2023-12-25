@@ -6,17 +6,16 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 13:00:37 by hsawamur          #+#    #+#              #
-#    Updated: 2023/12/23 19:25:20 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/12/25 16:14:55 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+DEBUGCFLAGS = -g -fsanitize=address -fno-omit-frame-pointer
 # DEBUGCFLAGS = -g -fsanitize=thread
-DEBUGCFLAGS += -g -fsanitize=leak
 # CFLAGS += -MMD -MP
-# CFLAGS += -fsanitize=address -g
 
 SRCS_DIR = srcs
 SRCS = $(SRCS_DIR)/main.c \
@@ -28,10 +27,8 @@ SRCS = $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/sleeping.c \
 		$(SRCS_DIR)/thinking.c \
 		$(SRCS_DIR)/died.c \
-		$(SRCS_DIR)/p_usleep.c \
 		$(SRCS_DIR)/read.c \
 		$(SRCS_DIR)/time.c \
-		$(SRCS_DIR)/ft_isdigit.c \
 		$(SRCS_DIR)/ft_strlen.c \
 		$(SRCS_DIR)/ft_atoi.c \
 		$(SRCS_DIR)/debug.c \

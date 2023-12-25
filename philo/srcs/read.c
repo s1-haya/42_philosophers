@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:52:18 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/21 21:13:50 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/24 14:20:46 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ bool	read_is_dead(t_table *table)
 	bool	read;
 
 	read = false;
-	pthread_mutex_lock(&table->table);
+	pthread_mutex_lock(&table->read);
 	read = table->is_dead;
-	pthread_mutex_unlock(&table->table);
+	pthread_mutex_unlock(&table->read);
 	return (read);
 }
 
@@ -39,9 +39,9 @@ bool	read_is_success(t_table *table)
 	bool	read;
 
 	read = false;
-	pthread_mutex_lock(&table->table);
+	pthread_mutex_lock(&table->read);
 	read = table->is_success;
-	pthread_mutex_unlock(&table->table);
+	pthread_mutex_unlock(&table->read);
 	return (read);
 }
 
@@ -50,9 +50,9 @@ bool	read_is_error(t_table *table)
 	bool	read;
 
 	read = false;
-	pthread_mutex_lock(&table->table);
+	pthread_mutex_lock(&table->read);
 	read = table->is_error;
-	pthread_mutex_unlock(&table->table);
+	pthread_mutex_unlock(&table->read);
 	return (read);
 }
 
@@ -61,8 +61,8 @@ long	read_start_time(t_table *table)
 	long	start_time;
 
 	start_time = 0;
-	pthread_mutex_lock(&table->table);
+	pthread_mutex_lock(&table->read);
 	start_time = table->start_time;
-	pthread_mutex_unlock(&table->table);
+	pthread_mutex_unlock(&table->read);
 	return (start_time);
 }

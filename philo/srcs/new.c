@@ -6,23 +6,23 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/23 14:26:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:18:07 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_fork	*new_fork()
+t_fork	*new_fork(void)
 {
 	t_fork			*fork;
 	pthread_mutex_t	mutex;
-	
+
+	if (pthread_mutex_init(&mutex, NULL))
+		return (NULL);
 	fork = malloc(sizeof(t_fork));
 	if (fork == NULL)
 		return (NULL);
-	pthread_mutex_init(&mutex, NULL);
 	fork->fork = mutex;
-	fork->is_used = false;
 	return (fork);
 }
 
@@ -60,8 +60,15 @@ t_table	*new_table(t_philo_ability ability)
 {
 	t_table			*table;
 	pthread_mutex_t	mes;
-	pthread_mutex_t	data;
+	pthread_mutex_t	read;
 
+	if (pthread_mutex_init(&mes, NULL) != 0)
+		return (NULL);
+	if (pthread_mutex_init(&read, NULL) != 0)
+	{
+		pthread_mutex_destroy(&mes);
+		return (NULL);
+	}
 	table = malloc(sizeof(t_table));
 	if (table == NULL)
 		return (NULL);
@@ -69,10 +76,8 @@ t_table	*new_table(t_philo_ability ability)
 	table->is_success = false;
 	table->is_error = false;
 	table->is_dead = false;
-	pthread_mutex_init(&mes, NULL);
 	table->mes = mes;
-	pthread_mutex_init(&data, NULL);
-	table->table = data;
+	table->read = read;
 	table->ability = ability;
 	return (table);
 }

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:50:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/22 19:28:29 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:18:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ bool	sleeping(t_philo *philo)
 		&& philo->id == read_last_eat_philo_id(philo->right))
 	{
 		print_info(philo, MESSAGE_SLEEPING);
-		usleep(philo->table->ability.sleep_time * 1000 - 500);
-		// p_usleep(philo->table->ability.sleep_time * 1000);
+		usleep(philo->table->ability.sleep_time * 1000);
 	}
 	return (false);
 }

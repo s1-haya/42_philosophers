@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/23 19:28:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/25 16:26:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 # define SUCCESS 1
 # define ERROR 0
 
-#include <stdio.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <unistd.h>
+# include <stdio.h>
+# include <pthread.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# include <unistd.h>
 
 typedef struct e_philo_ability {
 	int		n_philos;
@@ -38,7 +38,6 @@ typedef struct e_philo_ability {
 
 typedef struct e_fork {
 	pthread_mutex_t	fork;
-	bool			is_used;
 	int				last_eat_philo;
 }	t_fork;
 
@@ -50,7 +49,7 @@ typedef struct e_table {
 	int				n_philos_ate;
 	t_philo_ability	ability;
 	pthread_mutex_t	mes;
-	pthread_mutex_t	table;
+	pthread_mutex_t	read;
 }	t_table;
 
 typedef struct e_philo {
@@ -64,9 +63,10 @@ typedef struct e_philo {
 }	t_philo;
 
 // new.c
-t_table	*new_table();
-t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_table *table);
-t_fork	*new_fork();
+t_table			*new_table(t_philo_ability ability);
+t_philo			*new_philo(size_t id, t_fork *left,
+					t_fork *right, t_table *table);
+t_fork			*new_fork(void);
 
 // create.c
 t_philo_ability	new_philo_ability(int argc, char **argv);
@@ -76,12 +76,12 @@ int				create_pthread(t_philo **philos);
 void			*simulation(void *arg);
 int				start_simulation(t_philo **philos);
 bool			is_philo_id(int id, t_fork *fork);
-int 			read_last_eat_philo_id(t_fork *fork);
+int				read_last_eat_philo_id(t_fork *fork);
 bool			read_is_dead(t_table *table);
 bool			read_is_success(t_table *table);
 bool			read_is_error(t_table *table);
 long			read_start_time(t_table *table);
-long			get_usec();
+long			get_usec(void);
 long			get_elapsed_ms(long start_ms);
 void			dying_message(t_philo *philo);
 bool			eating(t_philo *philo);
@@ -93,15 +93,14 @@ bool			check_philo_ate(int n_philos_ate, int eat_count);
 
 // delete.c
 int				end_simulation(t_philo **philos, int index);
-void			delete_philos(t_philo **philos);
+void			delete_philos(t_philo **philos, int index);
 void			delete_forks(t_fork **forks);
 void			delete_table(t_table *table);
 
-int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
 size_t			ft_strlen(const char *str);
 void			p_usleep(int end_time);
 
-void	printf_debug_philos(t_philo **philos);
-void	printf_debug_table(int id, t_table *table);
+void			printf_debug_philos(t_philo **philos);
+void			printf_debug_table(int id, t_table *table);
 #endif
