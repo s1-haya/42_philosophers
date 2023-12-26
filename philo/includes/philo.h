@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/25 16:26:01 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/26 13:12:29 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # define MESSAGE_SLEEPING "%ld %d is sleeping\n"
 # define MESSAGE_THINKING "%ld %d is thinking\n"
 # define MESSAGE_DIED "%ld %d died\n"
-# define SUCCESS 1
-# define ERROR 0
+# define SUCCESS 0
+# define ERROR 1
 
 # include <stdio.h>
 # include <pthread.h>
@@ -62,20 +62,16 @@ typedef struct e_philo {
 	t_table			*table;
 }	t_philo;
 
-// new.c
 t_table			*new_table(t_philo_ability ability);
 t_philo			*new_philo(size_t id, t_fork *left,
 					t_fork *right, t_table *table);
 t_fork			*new_fork(void);
-
-// create.c
 t_philo_ability	new_philo_ability(int argc, char **argv);
 t_philo			**create_philos(t_fork **forks, t_table *table);
 t_fork			**create_forks(int n_philo);
 int				create_pthread(t_philo **philos);
 void			*simulation(void *arg);
 int				start_simulation(t_philo **philos);
-bool			is_philo_id(int id, t_fork *fork);
 int				read_last_eat_philo_id(t_fork *fork);
 bool			read_is_dead(t_table *table);
 bool			read_is_success(t_table *table);
@@ -89,18 +85,11 @@ bool			sleeping(t_philo *philo);
 bool			thinking(t_philo *philo);
 void			print_info(t_philo *philo, char *mes);
 bool			check_philo_died(t_philo *philo);
-bool			check_philo_ate(int n_philos_ate, int eat_count);
-
-// delete.c
 int				end_simulation(t_philo **philos, int index);
 void			delete_philos(t_philo **philos, int index);
 void			delete_forks(t_fork **forks);
 void			delete_table(t_table *table);
-
 int				ft_atoi(const char *str);
 size_t			ft_strlen(const char *str);
 void			p_usleep(int end_time);
-
-void			printf_debug_philos(t_philo **philos);
-void			printf_debug_table(int id, t_table *table);
 #endif

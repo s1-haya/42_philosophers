@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:21:32 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/25 16:20:45 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/26 13:14:05 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	*simulation(void *arg)
 	philo->last_eat_time = philo->table->start_time;
 	while (1)
 	{
+		if (check_philo_died(philo))
+			break ;
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);
-		if (check_philo_died(philo))
-			break ;
 	}
 	return (philo);
 }

@@ -6,34 +6,27 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:47:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/25 16:17:09 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/26 13:07:20 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	check_philo_ate(int n_philos_ate, int eat_count)
-{
-	if (eat_count == -1)
-		return (false);
-	return (n_philos_ate >= eat_count);
-}
-
 void	time_to_eat(t_philo *philo)
 {
+	philo->last_eat_time = get_usec();
+	p_usleep(philo->table->ability.eat_time * 1000);
 	if (philo->table->ability.eat_count != -1)
 	{
 		if (read_is_dead(philo->table))
 			return ;
 		pthread_mutex_lock(&(philo->table->read));
 		philo->n_ate++;
-		if (check_philo_ate(philo->n_ate, philo->table->ability.eat_count))
+		if (philo->table->n_philos_ate >= philo->n_ate)
 			philo->table->n_philos_ate-- ;
 		philo->table->is_dead = philo->table->n_philos_ate == 0;
 		pthread_mutex_unlock(&(philo->table->read));
 	}
-	philo->last_eat_time = get_usec();
-	p_usleep(philo->table->ability.eat_time * 1000);
 }
 
 bool	eating(t_philo *philo)

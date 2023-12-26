@@ -6,13 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/25 16:20:06 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/26 12:46:21 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 #define ERROR_MES_FAILD_INIT "Initialization faild\n"
+#define DIGIT_INT_MAX 9
 
 static bool	is_valid_n(int argc, char **argv)
 {
@@ -21,18 +22,15 @@ static bool	is_valid_n(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_atoi(argv[i]) <= 0)
+		if (ft_strlen(argv[i]) > DIGIT_INT_MAX || ft_atoi(argv[i]) < 0)
 			return (false);
 		i++;
 	}
-	if (ft_atoi(argv[1]) == 1)
-		return (false);
 	return (true);
 }
 
 static bool	is_error(int argc, char **argv)
 {
-	printf("argc: %d\n", argc);
 	if (argc == 5 || argc == 6)
 	{
 		if (is_valid_n(argc, argv))
@@ -55,10 +53,17 @@ t_philo	**set_philos(int argc, char **argv)
 		return (NULL);
 	forks = create_forks(table->ability.n_philos);
 	if (forks == NULL)
+	{
+		delete_table(table);
 		return (NULL);
+	}
 	philos = create_philos(forks, table);
 	if (philos == NULL)
+	{
+		delete_forks(forks);
+		delete_table(table);
 		return (NULL);
+	}
 	return (philos);
 }
 
