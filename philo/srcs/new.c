@@ -6,11 +6,12 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/26 12:23:09 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:22:21 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdlib.h>
 
 t_fork	*new_fork(void)
 {
@@ -41,43 +42,43 @@ t_philo	*new_philo(size_t id, t_fork *left, t_fork *right, t_table *table)
 	return (philo);
 }
 
-t_philo_ability	new_philo_ability(int argc, char **argv)
+t_config	new_config(int argc, char **argv)
 {
-	t_philo_ability	philo_ability;
+	t_config	config;
 
-	philo_ability.n_philos = atoi(argv[1]);
-	philo_ability.die_time = atoi(argv[2]);
-	philo_ability.eat_time = atoi(argv[3]);
-	philo_ability.sleep_time = atoi(argv[4]);
+	config.n_philos = atoi(argv[1]);
+	config.die_time = atoi(argv[2]);
+	config.eat_time = atoi(argv[3]);
+	config.sleep_time = atoi(argv[4]);
 	if (argc == 5)
-		philo_ability.eat_count = -1;
+		config.eat_count = -1;
 	else
-		philo_ability.eat_count = atoi(argv[5]);
-	return (philo_ability);
+		config.eat_count = atoi(argv[5]);
+	return (config);
 }
 
-t_table	*new_table(t_philo_ability ability)
+t_table	*new_table(t_config config)
 {
 	t_table			*table;
-	pthread_mutex_t	mes;
-	pthread_mutex_t	read;
+	pthread_mutex_t	print_message;
+	pthread_mutex_t	get_data;
 
-	if (pthread_mutex_init(&mes, NULL) != 0)
+	if (pthread_mutex_init(&print_message, NULL) != 0)
 		return (NULL);
-	if (pthread_mutex_init(&read, NULL) != 0)
+	if (pthread_mutex_init(&get_data, NULL) != 0)
 	{
-		pthread_mutex_destroy(&mes);
+		pthread_mutex_destroy(&print_message);
 		return (NULL);
 	}
 	table = malloc(sizeof(t_table));
 	if (table == NULL)
 		return (NULL);
-	table->n_philos_ate = ability.n_philos;
+	table->n_philos_ate = 0;
 	table->is_success = false;
 	table->is_error = false;
 	table->is_dead = false;
-	table->mes = mes;
-	table->read = read;
-	table->ability = ability;
+	table->print_message = print_message;
+	table->get_data = get_data;
+	table->config = config;
 	return (table);
 }

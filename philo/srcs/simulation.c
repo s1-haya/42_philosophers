@@ -6,18 +6,20 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:21:32 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/27 17:47:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:25:31 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdio.h>
+#include <unistd.h>
 
-void	print_info(t_philo *philo, char *mes)
+void	print_info(t_philo *philo, char *print_message)
 {
-	pthread_mutex_lock(&(philo->table->mes));
+	pthread_mutex_lock(&(philo->table->print_message));
 	if (!(get_is_dead(philo->table) || get_is_error(philo->table)))
-		printf(mes, get_elapsed_ms(get_start_time(philo->table)), philo->id);
-	pthread_mutex_unlock(&(philo->table->mes));
+		printf(print_message, get_elapsed_ms(get_start_time(philo->table)), philo->id);
+	pthread_mutex_unlock(&(philo->table->print_message));
 }
 
 void	*simulation(void *arg)
@@ -40,7 +42,7 @@ void	*simulation(void *arg)
 		sleeping(philo);
 		thinking(philo);
 	}
-	return (philo);
+	return (NULL);
 }
 
 int	start_simulation(t_philo **philos)
@@ -49,13 +51,13 @@ int	start_simulation(t_philo **philos)
 	int		index;
 
 	index = create_pthread(philos);
-	if (index == philos[0]->table->ability.n_philos)
+	if (index == philos[0]->table->config.n_philos)
 	{
-		pthread_mutex_lock(&philos[0]->table->read);
+		pthread_mutex_lock(&philos[0]->table->get_data);
 		start_time = get_usec();
 		philos[0]->table->start_time = start_time;
 		philos[0]->table->is_success = true;
-		pthread_mutex_unlock(&philos[0]->table->read);
+		pthread_mutex_unlock(&philos[0]->table->get_data);
 	}
 	return (index);
 }
@@ -63,14 +65,13 @@ int	start_simulation(t_philo **philos)
 int	end_simulation(t_philo **philos, int index)
 {
 	int		i;
-	char	*ret;
 	int		status;
 
 	i = 0;
-	status = index != philos[0]->table->ability.n_philos;
+	status = index != philos[0]->table->config.n_philos;
 	while (i < index)
 	{
-		pthread_join(philos[i]->living, (void **)&ret);
+		pthread_join(philos[i]->living, NULL);
 		i++;
 	}
 	delete_philos(philos, index);

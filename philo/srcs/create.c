@@ -6,11 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/26 12:33:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:22:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 #define ERROR_MES_CREATE_THREAD "pthread fail\n"
 
@@ -20,7 +22,7 @@ int	create_pthread(t_philo **philos)
 	int		p_create;
 
 	i = 0;
-	while (i < philos[0]->table->ability.n_philos)
+	while (i < philos[0]->table->config.n_philos)
 	{
 		p_create = pthread_create(&philos[i]->living, NULL,
 				simulation, philos[i]);
@@ -28,9 +30,9 @@ int	create_pthread(t_philo **philos)
 		{
 			write(STDERR_FILENO, ERROR_MES_CREATE_THREAD,
 				ft_strlen(ERROR_MES_CREATE_THREAD));
-			pthread_mutex_lock(&philos[i]->table->read);
+			pthread_mutex_lock(&philos[i]->table->get_data);
 			philos[i]->table->is_error = true;
-			pthread_mutex_unlock(&philos[i]->table->read);
+			pthread_mutex_unlock(&philos[i]->table->get_data);
 			return (i);
 		}
 		i++;
@@ -72,14 +74,14 @@ t_philo	**create_philos(t_fork **forks,
 	t_philo	**philos;
 	int		i;
 
-	philos = malloc(sizeof(t_philo) * table->ability.n_philos);
+	philos = malloc(sizeof(t_philo) * table->config.n_philos);
 	if (philos == NULL)
 		return (NULL);
 	i = 0;
-	while (i < table->ability.n_philos)
+	while (i < table->config.n_philos)
 	{
 		philos[i] = new_philo(i + 1, forks[i],
-				forks[(i + 1) % table->ability.n_philos],
+				forks[(i + 1) % table->config.n_philos],
 				table);
 		if (philos[i] == NULL)
 		{

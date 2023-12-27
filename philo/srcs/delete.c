@@ -6,11 +6,12 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:57:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/25 19:37:39 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:23:03 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdlib.h>
 
 void	delete_fork(t_fork *fork)
 {
@@ -33,8 +34,8 @@ void	delete_forks(t_fork **forks)
 
 void	delete_table(t_table *table)
 {
-	pthread_mutex_destroy(&(table->mes));
-	pthread_mutex_destroy(&(table->read));
+	pthread_mutex_destroy(&(table->print_message));
+	pthread_mutex_destroy(&(table->get_data));
 	free(table);
 }
 

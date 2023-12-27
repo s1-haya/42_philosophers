@@ -6,12 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:05:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/26 17:52:40 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:23:50 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/time.h>
 #include "philo.h"
+#include <sys/time.h>
+#include <unistd.h>
 
 long	get_usec(void)
 {

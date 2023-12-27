@@ -6,14 +6,16 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/26 12:46:21 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:24:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <unistd.h>
 
 #define ERROR_MES_FAILD_INIT "Initialization faild\n"
-#define DIGIT_INT_MAX 9
+#define SUCCESS 0
+#define ERROR 1
 
 static bool	is_valid_n(int argc, char **argv)
 {
@@ -22,7 +24,7 @@ static bool	is_valid_n(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_strlen(argv[i]) > DIGIT_INT_MAX || ft_atoi(argv[i]) < 0)
+		if (ft_atoi(argv[i]) <= 0)
 			return (false);
 		i++;
 	}
@@ -48,10 +50,10 @@ t_philo	**set_philos(int argc, char **argv)
 
 	if (is_error(argc, argv))
 		return (NULL);
-	table = new_table(new_philo_ability(argc, argv));
+	table = new_table(new_config(argc, argv));
 	if (table == NULL)
 		return (NULL);
-	forks = create_forks(table->ability.n_philos);
+	forks = create_forks(table->config.n_philos);
 	if (forks == NULL)
 	{
 		delete_table(table);

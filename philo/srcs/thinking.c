@@ -6,11 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:49:15 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/27 17:48:28 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:23:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <unistd.h>
+
+# define MESSAGE_THINKING "%ld %d is thinking\n"
 
 bool	thinking(t_philo *philo)
 {
