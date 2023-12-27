@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:05:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/25 16:19:30 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/26 17:52:40 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ long	get_usec(void)
 
 long	get_elapsed_ms(long start_usec)
 {
-	if (get_usec() == -1)
+	long	usec;
+
+	usec = get_usec();
+	if (usec == -1)
 		return (-1);
-	return ((get_usec() - start_usec) / 1000);
+	return ((usec - start_usec) / 1000);
 }
 
 void	p_usleep(int end_time)

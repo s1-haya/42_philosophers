@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/26 13:12:29 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:46:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,20 @@ t_philo			*new_philo(size_t id, t_fork *left,
 					t_fork *right, t_table *table);
 t_fork			*new_fork(void);
 t_philo_ability	new_philo_ability(int argc, char **argv);
+
 t_philo			**create_philos(t_fork **forks, t_table *table);
 t_fork			**create_forks(int n_philo);
 int				create_pthread(t_philo **philos);
+
 void			*simulation(void *arg);
 int				start_simulation(t_philo **philos);
-int				read_last_eat_philo_id(t_fork *fork);
-bool			read_is_dead(t_table *table);
-bool			read_is_success(t_table *table);
-bool			read_is_error(t_table *table);
-long			read_start_time(t_table *table);
+
+int	get_last_eat_philo_id(t_fork *fork);
+bool	get_is_dead(t_table *table);
+bool	get_is_success(t_table *table);
+bool	get_is_error(t_table *table);
+long	get_start_time(t_table *table);
+
 long			get_usec(void);
 long			get_elapsed_ms(long start_ms);
 void			dying_message(t_philo *philo);

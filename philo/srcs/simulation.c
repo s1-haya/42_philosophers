@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:21:32 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/26 13:14:05 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:47:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	print_info(t_philo *philo, char *mes)
 {
 	pthread_mutex_lock(&(philo->table->mes));
-	if (!(read_is_dead(philo->table) || read_is_error(philo->table)))
-		printf(mes, get_elapsed_ms(read_start_time(philo->table)), philo->id);
+	if (!(get_is_dead(philo->table) || get_is_error(philo->table)))
+		printf(mes, get_elapsed_ms(get_start_time(philo->table)), philo->id);
 	pthread_mutex_unlock(&(philo->table->mes));
 }
 
@@ -25,9 +25,9 @@ void	*simulation(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!read_is_success(philo->table))
+	while (!get_is_success(philo->table))
 	{
-		if (read_is_error(philo->table))
+		if (get_is_error(philo->table))
 			return (NULL);
 		usleep(100);
 	}

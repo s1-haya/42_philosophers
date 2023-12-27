@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.c                                             :+:      :+:    :+:   */
+/*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 18:52:18 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/24 14:20:46 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/12/27 17:45:29 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/12/27 17:46:02 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	read_last_eat_philo_id(t_fork *fork)
+int	get_last_eat_philo_id(t_fork *fork)
 {
 	int	id;
 
@@ -23,7 +23,7 @@ int	read_last_eat_philo_id(t_fork *fork)
 	return (id);
 }
 
-bool	read_is_dead(t_table *table)
+bool	get_is_dead(t_table *table)
 {
 	bool	read;
 
@@ -34,7 +34,7 @@ bool	read_is_dead(t_table *table)
 	return (read);
 }
 
-bool	read_is_success(t_table *table)
+bool	get_is_success(t_table *table)
 {
 	bool	read;
 
@@ -45,7 +45,7 @@ bool	read_is_success(t_table *table)
 	return (read);
 }
 
-bool	read_is_error(t_table *table)
+bool	get_is_error(t_table *table)
 {
 	bool	read;
 
@@ -56,7 +56,7 @@ bool	read_is_error(t_table *table)
 	return (read);
 }
 
-long	read_start_time(t_table *table)
+long	get_start_time(t_table *table)
 {
 	long	start_time;
 

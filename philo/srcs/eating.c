@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:47:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/26 13:07:20 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:48:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	time_to_eat(t_philo *philo)
 	p_usleep(philo->table->ability.eat_time * 1000);
 	if (philo->table->ability.eat_count != -1)
 	{
-		if (read_is_dead(philo->table))
+		if (get_is_dead(philo->table))
 			return ;
 		pthread_mutex_lock(&(philo->table->read));
 		philo->n_ate++;
@@ -31,8 +31,8 @@ void	time_to_eat(t_philo *philo)
 
 bool	eating(t_philo *philo)
 {
-	if ((philo->id == read_last_eat_philo_id(philo->left)
-			|| philo->id == read_last_eat_philo_id(philo->right)))
+	if ((philo->id == get_last_eat_philo_id(philo->left)
+			|| philo->id == get_last_eat_philo_id(philo->right)))
 		return (false);
 	print_info(philo, MESSAGE_TAKEN_A_FORK_LEFT);
 	print_info(philo, MESSAGE_TAKEN_A_FORK_RIGHT);
