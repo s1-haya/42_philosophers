@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:58:34 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/27 20:22:21 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:17:09 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ t_config	new_config(int argc, char **argv)
 {
 	t_config	config;
 
-	config.n_philos = atoi(argv[1]);
-	config.die_time = atoi(argv[2]);
-	config.eat_time = atoi(argv[3]);
-	config.sleep_time = atoi(argv[4]);
+	config.n_philos = ft_strtol(argv[1], NULL, 10);
+	config.die_time = ft_strtol(argv[2], NULL, 10);
+	config.eat_time = ft_strtol(argv[3], NULL, 10);
+	config.sleep_time = ft_strtol(argv[4], NULL, 10);
 	if (argc == 5)
 		config.eat_count = -1;
 	else
-		config.eat_count = atoi(argv[5]);
+		config.eat_count = ft_strtol(argv[5], NULL, 10);
 	return (config);
 }
 

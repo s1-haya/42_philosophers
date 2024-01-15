@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:05:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/27 20:23:50 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:54:05 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,24 @@ long	get_elapsed_ms(long start_usec)
 	return ((usec - start_usec) / 1000);
 }
 
-void	p_usleep(int end_time)
+void	p_usleep(long end_time)
 {
 	long	start_time;
 
 	start_time = get_usec();
 	while (end_time > (get_usec() - start_time))
 		usleep(300);
+}
+
+// #include <stdio.h>
+void	test_usleep(t_philo *philo, long end_time)
+{
+	long	start_time;
+
+	start_time = get_usec();
+	while (end_time > (get_usec() - start_time))
+	{
+		check_philo_died(philo);
+		usleep(200);
+	}
 }

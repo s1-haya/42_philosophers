@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:21:32 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/27 20:25:31 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:54:35 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	print_info(t_philo *philo, char *print_message)
 {
 	pthread_mutex_lock(&(philo->table->print_message));
 	if (!(get_is_dead(philo->table) || get_is_error(philo->table)))
-		printf(print_message, get_elapsed_ms(get_start_time(philo->table)), philo->id);
+		printf(print_message,
+			get_elapsed_ms(get_start_time(philo->table)),
+			philo->id);
 	pthread_mutex_unlock(&(philo->table->print_message));
 }
 
@@ -34,13 +36,11 @@ void	*simulation(void *arg)
 		usleep(100);
 	}
 	philo->last_eat_time = philo->table->start_time;
-	while (1)
+	while (!check_philo_died(philo))
 	{
-		if (check_philo_died(philo))
-			break ;
-		eating(philo);
-		sleeping(philo);
-		thinking(philo);
+		perform_eat(philo);
+		perform_sleep(philo);
+		perform_think(philo);
 	}
 	return (NULL);
 }

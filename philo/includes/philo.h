@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/27 20:25:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:17:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ long			get_start_time(t_table *table);
 long			get_usec(void);
 long			get_elapsed_ms(long start_ms);
 void			dying_message(t_philo *philo);
-bool			eating(t_philo *philo);
-bool			sleeping(t_philo *philo);
-bool			thinking(t_philo *philo);
+void			perform_eat(t_philo *philo);
+void			perform_sleep(t_philo *philo);
+void			perform_think(t_philo *philo);
 void			print_info(t_philo *philo, char *print_message);
 bool			check_philo_died(t_philo *philo);
 
@@ -83,7 +83,8 @@ void			delete_philos(t_philo **philos, int index);
 void			delete_forks(t_fork **forks);
 void			delete_table(t_table *table);
 
-int				ft_atoi(const char *str);
+long			ft_strtol(const char *nptr, char **endptr, int base);
 size_t			ft_strlen(const char *str);
-void			p_usleep(int end_time);
+void			p_usleep(long end_time);
+void			test_usleep(t_philo *philo, long end_time);
 #endif

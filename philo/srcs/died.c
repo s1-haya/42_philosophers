@@ -6,17 +6,19 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:52:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/27 20:23:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:54:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
 
-# define MESSAGE_DIED "%ld %d died\n"
+#define MESSAGE_DIED "%ld %d died\n"
 
 bool	check_philo_died(t_philo *philo)
 {
+	if (get_is_dead(philo->table))
+		return (true);
 	if (get_elapsed_ms(philo->last_eat_time) >= philo->table->config.die_time
 		|| philo->table->config.n_philos == 1)
 	{
