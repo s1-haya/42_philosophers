@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 22:49:15 by hsawamur          #+#    #+#             */
-/*   Updated: 2024/01/15 19:01:05 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:21:11 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	perform_think(t_philo *philo)
 	{
 		if (check_philo_died(philo))
 			break ;
-		usleep(200);
+		usleep(300);
 	}
 }

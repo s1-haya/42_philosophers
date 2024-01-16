@@ -6,20 +6,17 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2024/01/15 23:20:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:49:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <unistd.h>
+#include <limits.h>
 
 #define ERROR_MES_FAILD_INIT "Initialization faild\n"
 #define SUCCESS 0
 #define ERROR 1
-
-# include <stdio.h>
-# include <pthread.h>
-# include <stdlib.h>
 
 static bool	is_valid_n(int argc, char **argv)
 {
@@ -31,9 +28,10 @@ static bool	is_valid_n(int argc, char **argv)
 	while (i < argc)
 	{
 		data = ft_strtol(argv[i], &end_ptr, 10);
-		if (*end_ptr != '\0')
+		if (*end_ptr != '\0' || data <= 0)
 			return (false);
-		(void)data;
+		if (data * 1000 < INT_MIN && INT_MAX > data * 1000)
+			return (false);
 		i++;
 	}
 	return (true);

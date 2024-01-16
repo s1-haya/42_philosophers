@@ -4,6 +4,8 @@
 		"__locale": "c",
 		"functional": "c",
 		"ios": "c",
-		"philo.h": "c"
+		"philo.h": "c",
+		"locale": "c",
+		"sstream": "c"
 	}
 }

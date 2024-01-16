@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtol.data->c                                        :+:      :+:    :+:   */
+/*   ft_strtol.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:12:40 by hsawamur          #+#    #+#             */
-/*   Updated: 2024/01/15 23:02:46 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:49:34 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	get_speceific_base(char **s, int base)
 	return (base);
 }
 
-static int	get_c(char *str)
+static int	get_char_to_int(char *str)
 {
 	if ('0' <= (*str) && (*str) <= '9')
 		return ((*str) - '0');
@@ -62,7 +62,7 @@ static long	strtol_until(t_strtol *data, char *str, char **endptr)
 	res = 0;
 	while (*str != '\0')
 	{
-		data->c = get_c(str);
+		data->c = get_char_to_int(str);
 		if (data->c >= data->base)
 			break ;
 		if (res > data->divided
