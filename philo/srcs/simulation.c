@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:21:32 by hsawamur          #+#    #+#             */
-/*   Updated: 2024/01/15 18:54:35 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:51:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int	end_simulation(t_philo **philos, int index)
 		i++;
 	}
 	delete_philos(philos, index);
+	delete_table(philos[i]->table);
 	return (status);
 }

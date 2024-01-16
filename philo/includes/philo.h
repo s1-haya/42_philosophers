@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:50:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2024/01/16 14:20:57 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:52:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,5 @@ void			delete_table(t_table *table);
 
 long			ft_strtol(const char *nptr, char **endptr, int base);
 size_t			ft_strlen(const char *str);
-void			p_usleep(long end_time);
 void			test_usleep(t_philo *philo, long end_time);
 #endif

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:57:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/27 20:23:03 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:51:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	delete_philos(t_philo **philos, int index)
 	int	i;
 
 	i = 0;
-	delete_table(philos[i]->table);
 	while (i < index)
 	{
 		delete_fork(philos[i]->left);
