@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:05:39 by hsawamur          #+#    #+#             */
-/*   Updated: 2024/01/22 20:41:07 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/22 20:53:42 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ t_philo	**set_philos(int argc, char **argv)
 	return (philos);
 }
 
-#include <libc.h>
 int	main(int argc, char **argv)
 {
 	t_philo	**philos;
@@ -89,7 +88,5 @@ int	main(int argc, char **argv)
 		return (ERROR);
 	}
 	index = start_simulation(philos);
-	end_simulation(philos, index);
-	system("leaks -q ./philo");
-	return (0);
+	return (end_simulation(philos, index));
 }
