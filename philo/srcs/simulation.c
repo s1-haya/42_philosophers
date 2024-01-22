@@ -6,13 +6,15 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 19:21:32 by hsawamur          #+#    #+#             */
-/*   Updated: 2024/01/16 14:51:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/22 20:41:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
 #include <unistd.h>
+
+#define MESSAGE_TAKEN_A_FORK_LEFT "%ld %d has taken a left fork\n"
 
 void	print_info(t_philo *philo, char *print_message)
 {
@@ -22,6 +24,16 @@ void	print_info(t_philo *philo, char *print_message)
 			get_elapsed_ms(get_start_time(philo->table)),
 			philo->id);
 	pthread_mutex_unlock(&(philo->table->print_message));
+}
+
+static void	check_one_philo(t_philo *philo)
+{
+	if (philo->table->config.n_philos == 1)
+	{
+		print_info(philo, MESSAGE_TAKEN_A_FORK_LEFT);
+		test_usleep(philo, philo->table->config.die_time * 1000);
+		dying_message(philo);
+	}
 }
 
 void	*simulation(void *arg)
@@ -36,6 +48,7 @@ void	*simulation(void *arg)
 		usleep(100);
 	}
 	philo->last_eat_time = philo->table->start_time;
+	check_one_philo(philo);
 	while (!check_philo_died(philo))
 	{
 		perform_eat(philo);
@@ -74,7 +87,7 @@ int	end_simulation(t_philo **philos, int index)
 		pthread_join(philos[i]->living, NULL);
 		i++;
 	}
+	delete_table(philos[0]->table);
 	delete_philos(philos, index);
-	delete_table(philos[i]->table);
 	return (status);
 }

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:41 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/12/29 14:12:23 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/22 20:28:43 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ t_philo	**create_philos(t_fork **forks,
 		}
 		i++;
 	}
+	free(forks);
 	return (philos);
 }

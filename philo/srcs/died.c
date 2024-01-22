@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:52:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2024/01/15 18:54:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/22 14:16:37 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ bool	check_philo_died(t_philo *philo)
 {
 	if (get_is_dead(philo->table))
 		return (true);
-	if (get_elapsed_ms(philo->last_eat_time) >= philo->table->config.die_time
-		|| philo->table->config.n_philos == 1)
+	if (get_elapsed_ms(philo->last_eat_time) >= philo->table->config.die_time)
 	{
 		if (!get_is_dead(philo->table))
 			dying_message(philo);
