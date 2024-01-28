@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 08:52:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2024/01/28 15:32:26 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/28 15:33:46 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	dying_message(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->table->print_message));
 	if (!get_is_dead(philo->table))
-		printf(MESSAGE_DIED, get_elapsed_ms(philo->table->start_time), philo->id);
+		printf(MESSAGE_DIED,
+			get_elapsed_ms(philo->table->start_time),
+			philo->id);
 	pthread_mutex_unlock(&(philo->table->print_message));
 	pthread_mutex_lock(&(philo->table->get_data));
 	philo->table->is_dead = true;
