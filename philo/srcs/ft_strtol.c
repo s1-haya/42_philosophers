@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:12:40 by hsawamur          #+#    #+#             */
-/*   Updated: 2024/01/16 14:49:34 by hsawamur         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:07:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ long	ft_strtol(const char *nptr, char **endptr, int base)
 		(&data)->range = LONG_MAX;
 		str++;
 	}
+	else
+		(&data)->range = LONG_MAX;
 	(&data)->c = *str;
 	(&data)->base = get_speceific_base(&str, base);
 	(&data)->modulus = (&data)->range % (unsigned long)base;
